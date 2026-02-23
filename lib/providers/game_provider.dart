@@ -495,6 +495,34 @@ class GameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // ─── Toolbar position (per-game) ───
+
+  Offset? getToolbarPosition(Orientation orientation) {
+    if (_gameData == null) return null;
+    if (orientation == Orientation.portrait) {
+      final x = _gameData!.toolbarPortraitX;
+      final y = _gameData!.toolbarPortraitY;
+      if (x != null && y != null) return Offset(x, y);
+    } else {
+      final x = _gameData!.toolbarLandscapeX;
+      final y = _gameData!.toolbarLandscapeY;
+      if (x != null && y != null) return Offset(x, y);
+    }
+    return null;
+  }
+
+  void setToolbarPosition(Offset pos, Orientation orientation) {
+    if (_gameData == null) return;
+    if (orientation == Orientation.portrait) {
+      _gameData!.toolbarPortraitX = pos.dx;
+      _gameData!.toolbarPortraitY = pos.dy;
+    } else {
+      _gameData!.toolbarLandscapeX = pos.dx;
+      _gameData!.toolbarLandscapeY = pos.dy;
+    }
+    _saveGame();
+  }
+
   Future<void> _saveGame() async {
     if (_gameData == null) return;
     await GameStorage.saveGame(_gameData!);

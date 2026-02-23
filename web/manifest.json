@@ -1,6 +1,6 @@
 {
-    "name": "utopia_card_game_scoreboard",
-    "short_name": "utopia_card_game_scoreboard",
+    "name": "Utopia Scoreboard",
+    "short_name": "Utopia Scoreboard",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

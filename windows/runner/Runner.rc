@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.utopiaxc.scoreboard" "\0"
-            VALUE "FileDescription", "utopia_card_game_scoreboard" "\0"
+            VALUE "FileDescription", "Utopia Scoreboard" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "utopia_card_game_scoreboard" "\0"
+            VALUE "InternalName", "Utopia Scoreboard" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2026 com.utopiaxc.scoreboard. All rights reserved." "\0"
-            VALUE "OriginalFilename", "utopia_card_game_scoreboard.exe" "\0"
-            VALUE "ProductName", "utopia_card_game_scoreboard" "\0"
+            VALUE "OriginalFilename", "utopia_scoreboard.exe" "\0"
+            VALUE "ProductName", "Utopia Scoreboard" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

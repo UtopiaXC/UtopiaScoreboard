@@ -16,6 +16,12 @@ class GameData {
   List<int> scoreSteps;
   BackgroundConfig backgroundConfig;
   
+  // Per-game toolbar position
+  double? toolbarPortraitX;
+  double? toolbarPortraitY;
+  double? toolbarLandscapeX;
+  double? toolbarLandscapeY;
+  
   GameData({
     required this.id,
     required this.name,
@@ -29,6 +35,10 @@ class GameData {
     this.isZeroSum = false,
     List<int>? scoreSteps,
     BackgroundConfig? backgroundConfig,
+    this.toolbarPortraitX,
+    this.toolbarPortraitY,
+    this.toolbarLandscapeX,
+    this.toolbarLandscapeY,
   })  : createdAt = createdAt ?? DateTime.now(),
         updatedAt = updatedAt ?? DateTime.now(),
         players = players ?? [],
@@ -50,6 +60,10 @@ class GameData {
       'isZeroSum': isZeroSum,
       'scoreSteps': scoreSteps,
       'backgroundConfig': backgroundConfig.toJson(),
+      'toolbarPortraitX': toolbarPortraitX,
+      'toolbarPortraitY': toolbarPortraitY,
+      'toolbarLandscapeX': toolbarLandscapeX,
+      'toolbarLandscapeY': toolbarLandscapeY,
     };
   }
 
@@ -78,6 +92,10 @@ class GameData {
       backgroundConfig: json['backgroundConfig'] != null
           ? BackgroundConfig.fromJson(json['backgroundConfig'] as Map<String, dynamic>)
           : BackgroundConfig(),
+      toolbarPortraitX: (json['toolbarPortraitX'] as num?)?.toDouble(),
+      toolbarPortraitY: (json['toolbarPortraitY'] as num?)?.toDouble(),
+      toolbarLandscapeX: (json['toolbarLandscapeX'] as num?)?.toDouble(),
+      toolbarLandscapeY: (json['toolbarLandscapeY'] as num?)?.toDouble(),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../utils/update_util.dart';
 
 /// About screen showing app info, developer links, and licenses.
 class AboutScreen extends StatefulWidget {
@@ -27,8 +28,15 @@ class _AboutScreenState extends State<AboutScreen> {
 
   Future<void> _launchUrl(String url) async {
     final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
+    try {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      // Fallback: try platform default
+      try {
+        await launchUrl(uri);
+      } catch (_) {
+        // Could not launch
+      }
     }
   }
 
@@ -108,6 +116,13 @@ class _AboutScreenState extends State<AboutScreen> {
                   ),
                   _divider(),
                   _buildTapItem(
+                    '检查更新',
+                    '从 GitHub 检查最新版本',
+                    Icons.system_update_outlined,
+                    () => UpdateUtil.checkAndShow(context, isManualCheck: true),
+                  ),
+                  _divider(),
+                  _buildTapItem(
                     '开源许可证',
                     null,
                     Icons.description_outlined,
@@ -132,16 +147,6 @@ class _AboutScreenState extends State<AboutScreen> {
                     },
                   ),
                 ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 24),
-          Center(
-            child: Text(
-              '© 2024-2026 UtopiaXC. All rights reserved.',
-              style: GoogleFonts.notoSansSc(
-                color: Colors.white.withOpacity(0.2),
-                fontSize: 12,
               ),
             ),
           ),

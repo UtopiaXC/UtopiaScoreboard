@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../providers/game_provider.dart';
-import '../widgets/score_control_panel.dart';
+import '../widgets/control_panel.dart';
+import '../widgets/score_panel.dart';
 import '../widgets/game_background.dart';
 import '../widgets/game/player_item.dart';
 import 'home_screen.dart';
@@ -86,12 +87,12 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
             Positioned.fill(
               child: GameBackground(config: game.backgroundConfig),
             ),
-            // Tap to deselect
+            // Tap on empty area to deselect
             Positioned.fill(
               child: GestureDetector(
                 onTap: () => game.selectPlayer(null),
                 behavior: HitTestBehavior.translucent,
-                child: Container(),
+                child: const SizedBox.expand(),
               ),
             ),
             // Players
@@ -114,8 +115,10 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                 );
               },
             ),
-            // Score Control Panel
-            const ScoreControlPanel(),
+            // Control Panel (toolbar)
+            const ControlPanel(),
+            // Score Panel (floating, positioned relative to toolbar)
+            const ScorePanel(),
             // Top-left: back + rotate
             _TopLeftButtons(orientation: orientation),
             // Top-right: round display
@@ -148,15 +151,14 @@ class _TopLeftButtons extends StatelessWidget {
           const SizedBox(width: 6),
           _circleButton(
             icon: Icons.screen_rotation,
-            onTap: () {
-              SystemChrome.setPreferredOrientations([]);
+            onTap: () async {
               if (orientation == Orientation.portrait) {
-                SystemChrome.setPreferredOrientations([
+                await SystemChrome.setPreferredOrientations([
                   DeviceOrientation.landscapeLeft,
                   DeviceOrientation.landscapeRight,
                 ]);
               } else {
-                SystemChrome.setPreferredOrientations([
+                await SystemChrome.setPreferredOrientations([
                   DeviceOrientation.portraitUp,
                   DeviceOrientation.portraitDown,
                 ]);

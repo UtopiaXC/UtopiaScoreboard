@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -12,6 +13,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:gal/gal.dart';
 import '../providers/game_provider.dart';
 import '../models/round_record.dart';
+import '../utils/download_helper.dart';
 
 class RoundHistoryScreen extends StatefulWidget {
   const RoundHistoryScreen({super.key});
@@ -299,7 +301,10 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
       final fileName =
           'scoreboard_${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}.csv';
 
-      if (_isDesktop) {
+      if (kIsWeb) {
+        downloadFile(fileName, Uint8List.fromList(utf8.encode(csvContent)));
+        _showSuccess('已触发下载: $fileName');
+      } else if (_isDesktop) {
         final savedPath = await FilePicker.platform.saveFile(
           dialogTitle: '保存CSV文件',
           fileName: fileName,
@@ -319,11 +324,6 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
             text: '游戏记录 - ${game.gameName}',
           ),
         );
-      } else {
-        final dir = await getApplicationDocumentsDirectory();
-        final savedPath = '${dir.path}/$fileName';
-        await File(savedPath).writeAsString(csvContent);
-        _showSuccess('已导出: $savedPath');
       }
     } catch (e) {
       _showError('导出失败: $e');
@@ -421,7 +421,10 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
       final fileName =
           'scoreboard_${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}.png';
 
-      if (_isDesktop) {
+      if (kIsWeb) {
+        downloadFile(fileName, bytes);
+        _showSuccess('已触发下载: $fileName');
+      } else if (_isDesktop) {
         final savedPath = await FilePicker.platform.saveFile(
           dialogTitle: '保存PNG图片',
           fileName: fileName,
@@ -441,11 +444,6 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
             text: '游戏记录 - ${game.gameName}',
           ),
         );
-      } else {
-        final dir = await getApplicationDocumentsDirectory();
-        final savedPath = '${dir.path}/$fileName';
-        await File(savedPath).writeAsBytes(bytes);
-        _showSuccess('已导出: $savedPath');
       }
     } catch (e) {
       if (mounted) {

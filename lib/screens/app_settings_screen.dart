@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,6 +8,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:share_plus/share_plus.dart';
+import '../utils/download_helper.dart';
+import '../utils/update_util.dart';
 import 'score_steps_editor.dart';
 import 'about_screen.dart';
 
@@ -73,6 +76,15 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
             title: '导入数据',
             subtitle: '从文件恢复设置和游戏数据',
             onTap: _importData,
+          ),
+          const SizedBox(height: 12),
+
+          // Check for updates
+          _buildCard(
+            icon: Icons.system_update_outlined,
+            title: '检查更新',
+            subtitle: '从 GitHub 检查最新版本',
+            onTap: () => UpdateUtil.checkAndShow(context, isManualCheck: true),
           ),
           const SizedBox(height: 12),
 
@@ -177,9 +189,21 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
       final fileName =
           'scoreboard_backup_${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}_${now.hour.toString().padLeft(2, '0')}${now.minute.toString().padLeft(2, '0')}.json';
 
-      String? savedPath;
-      if (_isDesktop) {
-        savedPath = await FilePicker.platform.saveFile(
+      if (kIsWeb) {
+        // Web: trigger browser download
+        downloadFile(fileName, Uint8List.fromList(utf8.encode(jsonStr)));
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('已触发下载: $fileName',
+                  style: GoogleFonts.notoSansSc(color: Colors.white)),
+              backgroundColor: const Color(0xFF2D3748),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      } else if (_isDesktop) {
+        final savedPath = await FilePicker.platform.saveFile(
           dialogTitle: '保存备份文件',
           fileName: fileName,
           type: FileType.custom,
@@ -207,20 +231,6 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
             text: '游戏数据备份',
           ),
         );
-      } else {
-        final directory = await getApplicationDocumentsDirectory();
-        savedPath = '${directory.path}/$fileName';
-        await File(savedPath).writeAsString(jsonStr);
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('已导出到: $savedPath',
-                  style: GoogleFonts.notoSansSc(color: Colors.white)),
-              backgroundColor: const Color(0xFF2D3748),
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
-        }
       }
     } catch (e) {
       if (mounted) {

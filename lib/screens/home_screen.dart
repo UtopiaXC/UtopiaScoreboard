@@ -7,6 +7,7 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '../models/game_data.dart';
 import '../providers/game_provider.dart';
 import '../utils/game_storage.dart';
+import '../utils/update_util.dart';
 import '../widgets/game_background.dart';
 import 'app_settings_screen.dart';
 import 'game_screen.dart';
@@ -38,6 +39,14 @@ class _HomeScreenState extends State<HomeScreen>
     _fadeAnim =
         CurvedAnimation(parent: _animController, curve: Curves.easeOut);
     _loadGames();
+    // Auto-check for updates after a small delay
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(seconds: 2), () {
+        if (mounted) {
+          UpdateUtil.checkAndShow(context, isManualCheck: false);
+        }
+      });
+    });
   }
 
   @override
@@ -95,111 +104,110 @@ class _HomeScreenState extends State<HomeScreen>
           SafeArea(
             child: FadeTransition(
               opacity: _fadeAnim,
-              child: Column(
-                children: [
-                  const SizedBox(height: 40),
-                  // Title
-                  Text(
-                    'Utopia Scoreboard',
-                    style: GoogleFonts.outfit(
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      letterSpacing: 1.5,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black.withOpacity(0.3),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '桌游计分器',
-                    style: GoogleFonts.notoSansSc(
-                      fontSize: 16,
-                      color: Colors.white.withOpacity(0.7),
-                      letterSpacing: 2,
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-
-                  // New Game Button
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    child: _HeroButton(
-                      icon: Icons.add_rounded,
-                      label: '新建游戏',
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
-                      ),
-                      onTap: () => _showNewGameSheet(context),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-
-                  // Saved Games List
-                  if (!_isLoading && _savedGames.isNotEmpty) ...[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32),
-                      child: Row(
-                        children: [
-                          Text(
-                            '继续游戏',
-                            style: GoogleFonts.notoSansSc(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white.withOpacity(0.9),
-                            ),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.only(bottom: 80),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 40),
+                    // Title
+                    Text(
+                      'Utopia Scoreboard',
+                      style: GoogleFonts.outfit(
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        letterSpacing: 1.5,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black.withOpacity(0.3),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
                           ),
-                          const Spacer(),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 12),
-                    Expanded(
-                      child: ListView.builder(
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 32),
-                        itemCount: _savedGames.length,
-                        itemBuilder: (context, index) {
-                          final game = _savedGames[index];
-                          return _SavedGameCard(
-                            game: game,
-                            onTap: () => _loadGame(game.id),
-                            onEdit: () =>
-                                _showEditGameSheet(context, game),
-                            onDelete: () => _deleteGame(game.id),
-                          );
-                        },
-                      ),
-                    ),
-                  ] else if (!_isLoading) ...[
-                    const Spacer(),
-                    Icon(Icons.sports_esports_outlined,
-                        size: 80,
-                        color: Colors.white.withOpacity(0.15)),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 8),
                     Text(
-                      '还没有保存的游戏',
+                      '桌游计分器',
                       style: GoogleFonts.notoSansSc(
-                        color: Colors.white.withOpacity(0.4),
                         fontSize: 16,
+                        color: Colors.white.withOpacity(0.7),
+                        letterSpacing: 2,
                       ),
                     ),
-                    const Spacer(),
-                  ] else ...[
-                    const Spacer(),
-                    const CircularProgressIndicator(
-                        color: Colors.white54),
-                    const Spacer(),
-                  ],
+                    const SizedBox(height: 40),
+
+                    // New Game Button
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32),
+                      child: _HeroButton(
+                        icon: Icons.add_rounded,
+                        label: '新建游戏',
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
+                        ),
+                        onTap: () => _showNewGameSheet(context),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Saved Games List
+                    if (!_isLoading && _savedGames.isNotEmpty) ...[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 32),
+                        child: Row(
+                          children: [
+                            Text(
+                              '继续游戏',
+                              style: GoogleFonts.notoSansSc(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white.withOpacity(0.9),
+                              ),
+                            ),
+                            const Spacer(),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      // Render all cards inline (no nested ListView)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 32),
+                        child: Column(
+                          children: _savedGames.map((game) {
+                            return _SavedGameCard(
+                              game: game,
+                              onTap: () => _loadGame(game.id),
+                              onEdit: () =>
+                                  _showEditGameSheet(context, game),
+                              onDelete: () => _deleteGame(game.id),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ] else if (!_isLoading) ...[
+                      const SizedBox(height: 60),
+                      Icon(Icons.sports_esports_outlined,
+                          size: 80,
+                          color: Colors.white.withOpacity(0.15)),
+                      const SizedBox(height: 16),
+                      Text(
+                        '还没有保存的游戏',
+                        style: GoogleFonts.notoSansSc(
+                          color: Colors.white.withOpacity(0.4),
+                          fontSize: 16,
+                        ),
+                      ),
+                    ] else ...[
+                      const SizedBox(height: 60),
+                      const CircularProgressIndicator(
+                          color: Colors.white54),
+                    ],
                   ],
                 ),
               ),
             ),
+          ),
 
             // Bottom-right: rotate + settings buttons
             Positioned(
@@ -211,17 +219,16 @@ class _HomeScreenState extends State<HomeScreen>
                   Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () {
+                      onTap: () async {
                         final orientation =
                             MediaQuery.of(context).orientation;
-                        SystemChrome.setPreferredOrientations([]);
                         if (orientation == Orientation.portrait) {
-                          SystemChrome.setPreferredOrientations([
+                          await SystemChrome.setPreferredOrientations([
                             DeviceOrientation.landscapeLeft,
                             DeviceOrientation.landscapeRight,
                           ]);
                         } else {
-                          SystemChrome.setPreferredOrientations([
+                          await SystemChrome.setPreferredOrientations([
                             DeviceOrientation.portraitUp,
                             DeviceOrientation.portraitDown,
                           ]);
