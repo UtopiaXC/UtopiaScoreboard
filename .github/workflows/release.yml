@@ -92,7 +92,7 @@ jobs:
           mkdir -p out
           for apk in build/app/outputs/flutter-apk/*-release.apk; do
             abi=$(basename "$apk" | sed 's/.*-\(.*\)-release\.apk/\1/')
-            cp "$apk" "out/UtopiaMusic-${VERSION_NAME}-Android-${abi}.apk"
+            cp "$apk" "out/UtopiaScoreboard-${VERSION_NAME}-Android-${abi}.apk"
           done
       - uses: actions/upload-artifact@v4
         with:
@@ -132,39 +132,39 @@ jobs:
           mkdir -p dist/AppDir/usr/bin dist/AppDir/usr/share/applications dist/AppDir/usr/share/icons/hicolor/256x256/apps
           cp -r build/linux/x64/release/bundle/* dist/AppDir/usr/bin/
           
-          cat > dist/AppDir/utopiamusic.desktop <<'EOF'
+          cat > dist/AppDir/utopiascoreboard.desktop <<'EOF'
           [Desktop Entry]
           Type=Application
-          Name=UtopiaMusic
-          Exec=UtopiaMusic
-          Icon=utopiamusic
-          Categories=Audio;Music;
+          Name=UtopiaScoreboard
+          Exec=UtopiaScoreboard
+          Icon=UtopiaScoreboard
+          Categories=Audio;Scoreboard;
           EOF
           
-          cp dist/AppDir/utopiamusic.desktop dist/AppDir/usr/share/applications/
+          cp dist/AppDir/utopiascoreboard.desktop dist/AppDir/usr/share/applications/
           
           if [ -f assets/images/ic_windows.png ]; then 
-            cp assets/images/ic_windows.png dist/AppDir/utopiamusic.png
-            cp assets/images/ic_windows.png dist/AppDir/usr/share/icons/hicolor/256x256/apps/utopiamusic.png
+            cp assets/images/ic_windows.png dist/AppDir/utopiascoreboard.png
+            cp assets/images/ic_windows.png dist/AppDir/usr/share/icons/hicolor/256x256/apps/utopiascoreboard.png
           fi
           
-          ln -s usr/bin/UtopiaMusic dist/AppDir/AppRun
+          ln -s usr/bin/UtopiaScoreboard dist/AppDir/AppRun
           
-          (cd dist && ARCH=x86_64 ../appimagetool AppDir "UtopiaMusic-${VERSION_NAME}-Linux-x64.AppImage")
+          (cd dist && ARCH=x86_64 ../appimagetool AppDir "UtopiaScoreboard-${VERSION_NAME}-Linux-x64.AppImage")
           
           debVersion=${VERSION_NAME/+/-}
-          fpm -s dir -t deb -n utopiamusic -v "$debVersion" --architecture amd64 --prefix /opt/utopiamusic -C build/linux/x64/release/bundle .
-          mv utopiamusic_${debVersion}_amd64.deb "dist/UtopiaMusic-${VERSION_NAME}-Linux-x64.deb"
+          fpm -s dir -t deb -n utopiascoreboard -v "$debVersion" --architecture amd64 --prefix /opt/utopiascoreboard -C build/linux/x64/release/bundle .
+          mv utopiascoreboard_${debVersion}_amd64.deb "dist/UtopiaScoreboard-${VERSION_NAME}-Linux-x64.deb"
           rpmVersion=${VERSION_NAME/+/.}
-          fpm -s dir -t rpm -n utopiamusic -v "$rpmVersion" --architecture x86_64 --prefix /opt/utopiamusic -C build/linux/x64/release/bundle .
-          mv utopiamusic-${rpmVersion}-1.x86_64.rpm "dist/UtopiaMusic-${VERSION_NAME}-Linux-x64.rpm"
+          fpm -s dir -t rpm -n utopiascoreboard -v "$rpmVersion" --architecture x86_64 --prefix /opt/utopiascoreboard -C build/linux/x64/release/bundle .
+          mv utopiascoreboard-${rpmVersion}-1.x86_64.rpm "dist/UtopiaScoreboard-${VERSION_NAME}-Linux-x64.rpm"
       - uses: actions/upload-artifact@v4
         with:
           name: linux
           path: |
-            dist/UtopiaMusic-${{ env.VERSION_NAME }}-Linux-x64.AppImage
-            dist/UtopiaMusic-${{ env.VERSION_NAME }}-Linux-x64.deb
-            dist/UtopiaMusic-${{ env.VERSION_NAME }}-Linux-x64.rpm
+            dist/UtopiaScoreboard-${{ env.VERSION_NAME }}-Linux-x64.AppImage
+            dist/UtopiaScoreboard-${{ env.VERSION_NAME }}-Linux-x64.deb
+            dist/UtopiaScoreboard-${{ env.VERSION_NAME }}-Linux-x64.rpm
           if-no-files-found: error
 
   apple:
@@ -200,7 +200,7 @@ jobs:
         run: |
           mkdir -p dist/ios/Payload
           cp -R build/ios/Release-iphoneos/Runner.app dist/ios/Payload/Runner.app
-          (cd dist/ios && zip -r "UtopiaMusic-${VERSION_NAME}-iOS-universal.ipa" Payload)
+          (cd dist/ios && zip -r "UtopiaScoreboard-${VERSION_NAME}-iOS-universal.ipa" Payload)
       - name: Build macOS app
         run: flutter build macos --release --build-name $VERSION_NAME --build-number $BUILD_NUMBER
       - name: Ad-hoc Sign macOS App
@@ -214,13 +214,13 @@ jobs:
           if [ -z "$applicationPath" ]; then
             exit 1
           fi
-          hdiutil create -volname "UtopiaMusic" -srcfolder "$applicationPath" -ov -format UDZO "dist/mac/UtopiaMusic-${VERSION_NAME}-macOS-universal.dmg"
+          hdiutil create -volname "UtopiaScoreboard" -srcfolder "$applicationPath" -ov -format UDZO "dist/mac/UtopiaScoreboard-${VERSION_NAME}-macOS-universal.dmg"
       - uses: actions/upload-artifact@v4
         with:
           name: apple
           path: |
-            dist/ios/UtopiaMusic-${{ env.VERSION_NAME }}-iOS-universal.ipa
-            dist/mac/UtopiaMusic-${{ env.VERSION_NAME }}-macOS-universal.dmg
+            dist/ios/UtopiaScoreboard-${{ env.VERSION_NAME }}-iOS-universal.ipa
+            dist/mac/UtopiaScoreboard-${{ env.VERSION_NAME }}-macOS-universal.dmg
           if-no-files-found: error
 
   windows:
@@ -249,14 +249,14 @@ jobs:
       - name: Package portable zip
         run: |
           New-Item -ItemType Directory -Force -Path out | Out-Null
-          Compress-Archive -Path build\windows\x64\runner\Release\* -DestinationPath "out\UtopiaMusic-${env:VERSION_NAME}-Windows-x64-portable.zip"
+          Compress-Archive -Path build\windows\x64\runner\Release\* -DestinationPath "out\UtopiaScoreboard-${env:VERSION_NAME}-Windows-x64-portable.zip"
       - name: Package setup exe
         run: |
           if (Test-Path "windows\installer.iss") {
             choco install innosetup -y
-            iscc "windows\installer.iss" /DAppVersion=${env:VERSION_NAME} /O"out" /F"UtopiaMusic-${env:VERSION_NAME}-Windows-x64-setup"
+            iscc "windows\installer.iss" /DAppVersion=${env:VERSION_NAME} /O"out" /F"UtopiaScoreboard-${env:VERSION_NAME}-Windows-x64-setup"
             $signtool = Get-ChildItem -Path "C:\Program Files (x86)\Windows Kits" -Filter signtool.exe -Recurse | Sort-Object FullName -Descending | Select-Object -First 1
-            & $signtool.FullName sign /f cert.pfx /p "${{ secrets.WINDOWS_PFX_PASSWORD }}" /tr http://timestamp.digicert.com /td sha256 /fd sha256 "out\UtopiaMusic-${env:VERSION_NAME}-Windows-x64-setup.exe"
+            & $signtool.FullName sign /f cert.pfx /p "${{ secrets.WINDOWS_PFX_PASSWORD }}" /tr http://timestamp.digicert.com /td sha256 /fd sha256 "out\UtopiaScoreboard-${env:VERSION_NAME}-Windows-x64-setup.exe"
           }
       - uses: actions/upload-artifact@v4
         with:
@@ -286,12 +286,12 @@ jobs:
       - name: Package web build
         run: |
           cd build/web
-          zip -r "../../UtopiaMusic-${VERSION_NAME}-Web.zip" ./*
+          zip -r "../../UtopiaScoreboard-${VERSION_NAME}-Web.zip" ./*
           cd ../..
       - uses: actions/upload-artifact@v4
         with:
           name: web
-          path: UtopiaMusic-${{ env.VERSION_NAME }}-Web.zip
+          path: UtopiaScoreboard-${{ env.VERSION_NAME }}-Web.zip
           if-no-files-found: error
 
   publish:
