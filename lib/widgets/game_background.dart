@@ -98,8 +98,8 @@ class _MonetBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final palette = MonetPalettes.palettes[
-        paletteIndex.clamp(0, MonetPalettes.palettes.length - 1)];
+    final palette = MonetPalettes
+        .palettes[paletteIndex.clamp(0, MonetPalettes.palettes.length - 1)];
 
     return Stack(
       children: [
@@ -174,12 +174,12 @@ class FeltTexturePainter extends CustomPainter {
     }
 
     final paintBlack = Paint()
-      ..color = Colors.black.withOpacity(0.06)
+      ..color = Colors.black.withValues(alpha: 0.06)
       ..strokeWidth = 1.0
       ..strokeCap = StrokeCap.round;
 
     final paintWhite = Paint()
-      ..color = Colors.white.withOpacity(0.04)
+      ..color = Colors.white.withValues(alpha: 0.04)
       ..strokeWidth = 1.0
       ..strokeCap = StrokeCap.round;
 

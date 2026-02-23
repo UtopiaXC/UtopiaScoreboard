@@ -110,16 +110,16 @@ class UpdateUtil {
           context: context,
           builder: (ctx) => AlertDialog(
             backgroundColor: const Color(0xFF1A202C),
-            title:
-                Text('检查更新失败', style: GoogleFonts.notoSansSc(color: Colors.white)),
+            title: Text('检查更新失败',
+                style: GoogleFonts.notoSansSc(color: Colors.white)),
             content: Text(errorMessage,
                 style: GoogleFonts.notoSansSc(color: Colors.white70)),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(ctx),
                 child: Text('确认',
-                    style: GoogleFonts.notoSansSc(
-                        color: const Color(0xFF667EEA))),
+                    style:
+                        GoogleFonts.notoSansSc(color: const Color(0xFF667EEA))),
               ),
             ],
           ),
@@ -273,8 +273,7 @@ class UpdateUtil {
     return match?['browser_download_url'] as String?;
   }
 
-  static Future<void> _launchBrowser(
-      String url, BuildContext context) async {
+  static Future<void> _launchBrowser(String url, BuildContext context) async {
     try {
       final uri = Uri.parse(url);
       if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {

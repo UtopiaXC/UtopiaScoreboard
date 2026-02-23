@@ -15,13 +15,13 @@ class GameData {
   bool isZeroSum;
   List<int> scoreSteps;
   BackgroundConfig backgroundConfig;
-  
+
   // Per-game toolbar position
   double? toolbarPortraitX;
   double? toolbarPortraitY;
   double? toolbarLandscapeX;
   double? toolbarLandscapeY;
-  
+
   GameData({
     required this.id,
     required this.name,
@@ -90,7 +90,8 @@ class GameData {
               .toList() ??
           [1, 2, 4, 8, 16, 32, 64, 128],
       backgroundConfig: json['backgroundConfig'] != null
-          ? BackgroundConfig.fromJson(json['backgroundConfig'] as Map<String, dynamic>)
+          ? BackgroundConfig.fromJson(
+              json['backgroundConfig'] as Map<String, dynamic>)
           : BackgroundConfig(),
       toolbarPortraitX: (json['toolbarPortraitX'] as num?)?.toDouble(),
       toolbarPortraitY: (json['toolbarPortraitY'] as num?)?.toDouble(),
@@ -101,9 +102,9 @@ class GameData {
 }
 
 enum BackgroundType {
-  monet,      // Monet-style color palette tablecloth
+  monet, // Monet-style color palette tablecloth
   solidColor, // Solid color
-  image,      // Custom image (future)
+  image, // Custom image (future)
 }
 
 class BackgroundConfig {

@@ -180,10 +180,11 @@ class _TopLeftButtons extends StatelessWidget {
           width: 32,
           height: 32,
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.35),
+            color: Colors.black.withValues(alpha: 0.35),
             shape: BoxShape.circle,
           ),
-          child: Icon(icon, color: Colors.white.withOpacity(0.7), size: 16),
+          child:
+              Icon(icon, color: Colors.white.withValues(alpha: 0.7), size: 16),
         ),
       ),
     );
@@ -202,7 +203,7 @@ class _TopRightRound extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.35),
+          color: Colors.black.withValues(alpha: 0.35),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Row(
@@ -214,12 +215,12 @@ class _TopRightRound extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.flag_outlined,
-                      color: Colors.white.withOpacity(0.6), size: 14),
+                      color: Colors.white.withValues(alpha: 0.6), size: 14),
                   const SizedBox(width: 4),
                   Text(
                     '第 ${game.currentRound} 回合',
                     style: GoogleFonts.notoSansSc(
-                      color: Colors.white.withOpacity(0.8),
+                      color: Colors.white.withValues(alpha: 0.8),
                       fontSize: 13,
                     ),
                   ),
@@ -229,7 +230,7 @@ class _TopRightRound extends StatelessWidget {
             Container(
               width: 1,
               height: 18,
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
             ),
             Material(
               color: Colors.transparent,
@@ -256,8 +257,8 @@ class _TopRightRound extends StatelessWidget {
           context: context,
           builder: (ctx) => AlertDialog(
             backgroundColor: const Color(0xFF1A202C),
-            title: Text('确认',
-                style: GoogleFonts.notoSansSc(color: Colors.white)),
+            title:
+                Text('确认', style: GoogleFonts.notoSansSc(color: Colors.white)),
             content: Text('当前回合没有分数变化，是否空过进入下一回合？',
                 style: GoogleFonts.notoSansSc(color: Colors.white70)),
             actions: [
@@ -272,8 +273,8 @@ class _TopRightRound extends StatelessWidget {
                   Navigator.pop(ctx);
                 },
                 child: Text('确认',
-                    style: GoogleFonts.notoSansSc(
-                        color: const Color(0xFF667EEA))),
+                    style:
+                        GoogleFonts.notoSansSc(color: const Color(0xFF667EEA))),
               ),
             ],
           ),
@@ -286,8 +287,8 @@ class _TopRightRound extends StatelessWidget {
         context: context,
         builder: (ctx) => AlertDialog(
           backgroundColor: const Color(0xFF1A202C),
-          title: Text('结束回合',
-              style: GoogleFonts.notoSansSc(color: Colors.white)),
+          title:
+              Text('结束回合', style: GoogleFonts.notoSansSc(color: Colors.white)),
           content: Text('确认结束当前回合并进入下一回合？',
               style: GoogleFonts.notoSansSc(color: Colors.white70)),
           actions: [
@@ -302,8 +303,8 @@ class _TopRightRound extends StatelessWidget {
                 Navigator.pop(ctx);
               },
               child: Text('确认',
-                  style: GoogleFonts.notoSansSc(
-                      color: const Color(0xFF667EEA))),
+                  style:
+                      GoogleFonts.notoSansSc(color: const Color(0xFF667EEA))),
             ),
           ],
         ),
@@ -311,4 +312,3 @@ class _TopRightRound extends StatelessWidget {
     }
   }
 }
-

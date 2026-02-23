@@ -55,13 +55,13 @@ class UpdateDialog extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
                     color: isPrerelease
-                        ? Colors.orange.withOpacity(0.2)
-                        : Colors.green.withOpacity(0.2),
+                        ? Colors.orange.withValues(alpha: 0.2)
+                        : Colors.green.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(
                       color: isPrerelease
-                          ? Colors.orange.withOpacity(0.5)
-                          : Colors.green.withOpacity(0.5),
+                          ? Colors.orange.withValues(alpha: 0.5)
+                          : Colors.green.withValues(alpha: 0.5),
                     ),
                   ),
                   child: Text(
@@ -79,7 +79,7 @@ class UpdateDialog extends StatelessWidget {
             Text(
               '来源: GitHub',
               style: GoogleFonts.notoSansSc(
-                color: Colors.white.withOpacity(0.4),
+                color: Colors.white.withValues(alpha: 0.4),
                 fontSize: 12,
               ),
             ),
@@ -88,16 +88,17 @@ class UpdateDialog extends StatelessWidget {
               Container(
                 constraints: const BoxConstraints(maxHeight: 300),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.04),
+                  color: Colors.white.withValues(alpha: 0.04),
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.white.withOpacity(0.08)),
+                  border:
+                      Border.all(color: Colors.white.withValues(alpha: 0.08)),
                 ),
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.all(14),
                   child: Text(
                     body,
                     style: GoogleFonts.notoSansSc(
-                      color: Colors.white.withOpacity(0.7),
+                      color: Colors.white.withValues(alpha: 0.7),
                       fontSize: 13,
                       height: 1.6,
                     ),
@@ -126,8 +127,8 @@ class UpdateDialog extends StatelessWidget {
           },
           style: FilledButton.styleFrom(
             backgroundColor: const Color(0xFF667EEA),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           ),
           child:
               Text('下载更新', style: GoogleFonts.notoSansSc(color: Colors.white)),
@@ -141,8 +142,8 @@ class UpdateDialog extends StatelessWidget {
       context: context,
       builder: (dialogContext) => AlertDialog(
         backgroundColor: const Color(0xFF1A202C),
-        title: Text('忽略此版本',
-            style: GoogleFonts.notoSansSc(color: Colors.white)),
+        title:
+            Text('忽略此版本', style: GoogleFonts.notoSansSc(color: Colors.white)),
         content: Text('确定要忽略版本 $version 吗？下次检查更新时将不再提示此版本。',
             style: GoogleFonts.notoSansSc(color: Colors.white70)),
         actions: [
@@ -158,8 +159,7 @@ class UpdateDialog extends StatelessWidget {
               Navigator.pop(context);
             },
             child: Text('确认',
-                style: GoogleFonts.notoSansSc(
-                    color: const Color(0xFF667EEA))),
+                style: GoogleFonts.notoSansSc(color: const Color(0xFF667EEA))),
           ),
         ],
       ),

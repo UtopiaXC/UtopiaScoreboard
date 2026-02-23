@@ -68,7 +68,7 @@ class PlayerListSheet extends StatelessWidget {
       width: 40,
       height: 4,
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.2),
+        color: Colors.white.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(2),
       ),
     );
@@ -120,9 +120,9 @@ class _PlayerListItem extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 6),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05),
+        color: Colors.white.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withOpacity(0.06)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
       ),
       child: Row(
         children: [
@@ -150,7 +150,7 @@ class _PlayerListItem extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(Icons.my_location,
-                color: Colors.white.withOpacity(0.5), size: 20),
+                color: Colors.white.withValues(alpha: 0.5), size: 20),
             tooltip: '复位到中央',
             onPressed: () =>
                 game.resetPlayerPosition(player.id, screenSize, orientation),
@@ -160,7 +160,7 @@ class _PlayerListItem extends StatelessWidget {
           const SizedBox(width: 6),
           IconButton(
             icon: Icon(Icons.edit,
-                color: Colors.white.withOpacity(0.5), size: 20),
+                color: Colors.white.withValues(alpha: 0.5), size: 20),
             tooltip: '编辑',
             onPressed: () {
               Navigator.pop(context);
@@ -188,4 +188,3 @@ class _PlayerListItem extends StatelessWidget {
     );
   }
 }
-

@@ -76,7 +76,8 @@ class GameProvider extends ChangeNotifier {
       isZeroSum: isZeroSum,
     );
 
-    _spreadPlayersEvenly(initialPlayerCount, screenSize, initialScore: initialScore);
+    _spreadPlayersEvenly(initialPlayerCount, screenSize,
+        initialScore: initialScore);
 
     _currentRoundTransfers = [];
     _currentRoundEdits = [];
@@ -135,13 +136,16 @@ class GameProvider extends ChangeNotifier {
     return positions;
   }
 
-  void _spreadPlayersEvenly(int count, Size? screenSize, {int initialScore = 0}) {
+  void _spreadPlayersEvenly(int count, Size? screenSize,
+      {int initialScore = 0}) {
     if (count <= 0) return;
     final size = screenSize ?? const Size(800, 600);
     final positions = _generateSpreadPositions(count, size);
 
     for (int i = 0; i < count; i++) {
-      final pos = i < positions.length ? positions[i] : Offset(50.0 + i * 20, 50.0 + i * 20);
+      final pos = i < positions.length
+          ? positions[i]
+          : Offset(50.0 + i * 20, 50.0 + i * 20);
       _addPlayerInternal('玩家 ${i + 1}', initialScore, position: pos);
     }
   }
@@ -159,8 +163,7 @@ class GameProvider extends ChangeNotifier {
     return true;
   }
 
-  void _addPlayerInternal(String name, int initialScore,
-      {Offset? position}) {
+  void _addPlayerInternal(String name, int initialScore, {Offset? position}) {
     if (_gameData == null) return;
     final id = const Uuid().v4();
     final random = Random();
@@ -174,10 +177,10 @@ class GameProvider extends ChangeNotifier {
       name: name,
       score: initialScore,
       initialScore: initialScore,
-      position: position ??
-          Offset(100.0 * (_gameData!.players.length + 1), 100.0),
-      landscapePosition: position ??
-          Offset(100.0 * (_gameData!.players.length + 1), 100.0),
+      position:
+          position ?? Offset(100.0 * (_gameData!.players.length + 1), 100.0),
+      landscapePosition:
+          position ?? Offset(100.0 * (_gameData!.players.length + 1), 100.0),
       color: color,
     ));
   }
@@ -355,8 +358,10 @@ class GameProvider extends ChangeNotifier {
     bool changed = false;
 
     for (var player in _gameData!.players) {
-      final maxX = (screenSize.width - cardWidth * player.scale).clamp(0.0, double.infinity);
-      final maxY = (screenSize.height - cardHeight * player.scale - 10).clamp(0.0, double.infinity);
+      final maxX = (screenSize.width - cardWidth * player.scale)
+          .clamp(0.0, double.infinity);
+      final maxY = (screenSize.height - cardHeight * player.scale - 10)
+          .clamp(0.0, double.infinity);
 
       if (orientation == Orientation.portrait) {
         final pos = player.position;
@@ -397,7 +402,8 @@ class GameProvider extends ChangeNotifier {
       }
     }
     if (anyMissing) {
-      final positions = _generateSpreadPositions(_gameData!.players.length, landscapeSize);
+      final positions =
+          _generateSpreadPositions(_gameData!.players.length, landscapeSize);
       for (int i = 0; i < _gameData!.players.length; i++) {
         if (_gameData!.players[i].landscapePosition == null) {
           _gameData!.players[i].landscapePosition =
@@ -410,7 +416,8 @@ class GameProvider extends ChangeNotifier {
   }
 
   /// Reset player position to center of screen, with slight offset if center is occupied
-  void resetPlayerPosition(String playerId, Size screenSize, Orientation orientation) {
+  void resetPlayerPosition(
+      String playerId, Size screenSize, Orientation orientation) {
     if (_gameData == null) return;
     const double cardWidth = 240.0;
     const double cardHeight = 100.0;
@@ -435,7 +442,8 @@ class GameProvider extends ChangeNotifier {
     }
 
     final maxX = (screenSize.width - cardWidth).clamp(0.0, double.infinity);
-    final maxY = (screenSize.height - cardHeight - 10).clamp(0.0, double.infinity);
+    final maxY =
+        (screenSize.height - cardHeight - 10).clamp(0.0, double.infinity);
     centerX = centerX.clamp(0, maxX);
     centerY = centerY.clamp(0, maxY);
 

@@ -26,13 +26,13 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
   bool get _isDesktop =>
       !kIsWeb &&
       (defaultTargetPlatform == TargetPlatform.windows ||
-       defaultTargetPlatform == TargetPlatform.macOS ||
-       defaultTargetPlatform == TargetPlatform.linux);
+          defaultTargetPlatform == TargetPlatform.macOS ||
+          defaultTargetPlatform == TargetPlatform.linux);
 
   bool get _isMobile =>
       !kIsWeb &&
       (defaultTargetPlatform == TargetPlatform.android ||
-       defaultTargetPlatform == TargetPlatform.iOS);
+          defaultTargetPlatform == TargetPlatform.iOS);
 
   @override
   Widget build(BuildContext context) {
@@ -88,12 +88,12 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.history,
-                      size: 64, color: Colors.white.withOpacity(0.15)),
+                      size: 64, color: Colors.white.withValues(alpha: 0.15)),
                   const SizedBox(height: 16),
                   Text(
                     '暂无回合记录',
                     style: GoogleFonts.notoSansSc(
-                      color: Colors.white.withOpacity(0.4),
+                      color: Colors.white.withValues(alpha: 0.4),
                       fontSize: 16,
                     ),
                   ),
@@ -101,7 +101,7 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
                   Text(
                     '完成一个回合后，记录将显示在这里',
                     style: GoogleFonts.notoSansSc(
-                      color: Colors.white.withOpacity(0.25),
+                      color: Colors.white.withValues(alpha: 0.25),
                       fontSize: 13,
                     ),
                   ),
@@ -159,16 +159,19 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 40, height: 4,
+              width: 40,
+              height: 4,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.2),
+                color: Colors.white.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
             const SizedBox(height: 16),
             Text('导出游戏记录',
                 style: GoogleFonts.notoSansSc(
-                    color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600)),
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600)),
             const SizedBox(height: 20),
             _exportOption(
               icon: Icons.table_chart_outlined,
@@ -220,9 +223,9 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
       child: Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.06),
+          color: Colors.white.withValues(alpha: 0.06),
           borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: Colors.white.withOpacity(0.08)),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
         ),
         child: Row(
           children: [
@@ -233,13 +236,16 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(title,
-                      style: GoogleFonts.notoSansSc(color: Colors.white, fontSize: 15)),
+                      style: GoogleFonts.notoSansSc(
+                          color: Colors.white, fontSize: 15)),
                   Text(subtitle,
-                      style: GoogleFonts.notoSansSc(color: Colors.white38, fontSize: 12)),
+                      style: GoogleFonts.notoSansSc(
+                          color: Colors.white38, fontSize: 12)),
                 ],
               ),
             ),
-            Icon(Icons.chevron_right, color: Colors.white.withOpacity(0.3)),
+            Icon(Icons.chevron_right,
+                color: Colors.white.withValues(alpha: 0.3)),
           ],
         ),
       ),
@@ -409,7 +415,8 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
   ) async {
     try {
       _showLoading();
-      final bytes = await _generateExportImage(game, history, playerIds, playerNames);
+      final bytes =
+          await _generateExportImage(game, history, playerIds, playerNames);
       if (!mounted) return;
       Navigator.of(context).pop(); // dismiss loading
       if (bytes == null) {
@@ -461,7 +468,8 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
   ) async {
     try {
       _showLoading();
-      final bytes = await _generateExportImage(game, history, playerIds, playerNames);
+      final bytes =
+          await _generateExportImage(game, history, playerIds, playerNames);
       if (!mounted) return;
       Navigator.of(context).pop(); // dismiss loading
       if (bytes == null) {
@@ -514,7 +522,8 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message, style: GoogleFonts.notoSansSc(color: Colors.white)),
+        content:
+            Text(message, style: GoogleFonts.notoSansSc(color: Colors.white)),
         backgroundColor: const Color(0xFF2D3748),
         behavior: SnackBarBehavior.floating,
       ),
@@ -525,7 +534,8 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(message, style: GoogleFonts.notoSansSc(color: Colors.white)),
+        content:
+            Text(message, style: GoogleFonts.notoSansSc(color: Colors.white)),
         backgroundColor: Colors.redAccent,
         behavior: SnackBarBehavior.floating,
       ),
@@ -541,63 +551,72 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
         Text(
           '当前状态',
           style: GoogleFonts.notoSansSc(
-            color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600,
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 12),
         Row(
           children: [
-            _buildStatCard('当前回合', '${game.currentRound}',
-                Icons.flag_outlined, const Color(0xFF667EEA)),
+            _buildStatCard('当前回合', '${game.currentRound}', Icons.flag_outlined,
+                const Color(0xFF667EEA)),
             const SizedBox(width: 12),
             _buildStatCard('玩家数', '${game.players.length}',
                 Icons.people_outline, const Color(0xFF48BB78)),
             const SizedBox(width: 12),
-            _buildStatCard('历史回合', '${game.roundHistory.length}',
-                Icons.history, const Color(0xFFED8936)),
+            _buildStatCard('历史回合', '${game.roundHistory.length}', Icons.history,
+                const Color(0xFFED8936)),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildStatCard(String label, String value, IconData icon, Color color) {
+  Widget _buildStatCard(
+      String label, String value, IconData icon, Color color) {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
+          color: color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: color.withOpacity(0.2)),
+          border: Border.all(color: color.withValues(alpha: 0.2)),
         ),
         child: Column(
           children: [
             Icon(icon, color: color, size: 24),
             const SizedBox(height: 8),
-            Text(value, style: GoogleFonts.outfit(
-                color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+            Text(value,
+                style: GoogleFonts.outfit(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold)),
             const SizedBox(height: 4),
-            Text(label, style: GoogleFonts.notoSansSc(
-                color: Colors.white.withOpacity(0.5), fontSize: 12)),
+            Text(label,
+                style: GoogleFonts.notoSansSc(
+                    color: Colors.white.withValues(alpha: 0.5), fontSize: 12)),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildHistoryTable(List<RoundRecord> history,
-      List<String> playerIds, Map<String, String> playerNames) {
+  Widget _buildHistoryTable(List<RoundRecord> history, List<String> playerIds,
+      Map<String, String> playerNames) {
     return DataTable(
-      headingRowColor: WidgetStateProperty.all(Colors.white.withOpacity(0.05)),
+      headingRowColor:
+          WidgetStateProperty.all(Colors.white.withValues(alpha: 0.05)),
       dataRowColor: WidgetStateProperty.all(Colors.transparent),
       border: TableBorder.all(
-        color: Colors.white.withOpacity(0.08),
+        color: Colors.white.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(12),
       ),
       columns: [
         DataColumn(
-          label: Text('回合', style: GoogleFonts.notoSansSc(
-              color: Colors.white70, fontWeight: FontWeight.w600)),
+          label: Text('回合',
+              style: GoogleFonts.notoSansSc(
+                  color: Colors.white70, fontWeight: FontWeight.w600)),
         ),
         ...playerIds.map((id) => DataColumn(
               label: Text(playerNames[id] ?? '未知',
@@ -612,10 +631,12 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
           ...playerIds.map((id) {
             final pd = record.playerData[id];
             if (pd == null) {
-              return DataCell(Text('-', style: GoogleFonts.outfit(color: Colors.white30)));
+              return DataCell(
+                  Text('-', style: GoogleFonts.outfit(color: Colors.white30)));
             }
             final change = pd.scoreChange;
-            final changeStr = change > 0 ? '+$change' : (change < 0 ? '$change' : '0');
+            final changeStr =
+                change > 0 ? '+$change' : (change < 0 ? '$change' : '0');
             final changeColor = change > 0
                 ? Colors.greenAccent
                 : (change < 0 ? Colors.redAccent : Colors.white30);
@@ -625,9 +646,11 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text('${pd.totalScoreAfter}',
-                      style: GoogleFonts.outfit(color: Colors.white, fontSize: 14)),
+                      style: GoogleFonts.outfit(
+                          color: Colors.white, fontSize: 14)),
                   Text(changeStr,
-                      style: GoogleFonts.outfit(color: changeColor, fontSize: 11)),
+                      style:
+                          GoogleFonts.outfit(color: changeColor, fontSize: 11)),
                 ],
               ),
             );
@@ -642,9 +665,9 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.04),
+        color: Colors.white.withValues(alpha: 0.04),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -652,15 +675,18 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF667EEA).withOpacity(0.2),
+                  color: const Color(0xFF667EEA).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
                   '第 ${record.roundNumber} 回合',
                   style: GoogleFonts.notoSansSc(
-                    color: const Color(0xFF667EEA), fontSize: 13, fontWeight: FontWeight.w600,
+                    color: const Color(0xFF667EEA),
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
@@ -668,7 +694,7 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
               Text(
                 _formatTime(record.timestamp),
                 style: GoogleFonts.notoSansSc(
-                    color: Colors.white.withOpacity(0.3), fontSize: 12),
+                    color: Colors.white.withValues(alpha: 0.3), fontSize: 12),
               ),
             ],
           ),
@@ -679,9 +705,10 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
               width: double.infinity,
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Colors.tealAccent.withOpacity(0.08),
+                color: Colors.tealAccent.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.tealAccent.withOpacity(0.15)),
+                border: Border.all(
+                    color: Colors.tealAccent.withValues(alpha: 0.15)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -689,13 +716,15 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
                   Row(
                     children: [
                       Icon(Icons.people_alt_outlined,
-                          color: Colors.tealAccent.withOpacity(0.7), size: 16),
+                          color: Colors.tealAccent.withValues(alpha: 0.7),
+                          size: 16),
                       const SizedBox(width: 6),
                       Text(
                         '玩家变更',
                         style: GoogleFonts.notoSansSc(
-                          color: Colors.tealAccent.withOpacity(0.8),
-                          fontSize: 12, fontWeight: FontWeight.w600,
+                          color: Colors.tealAccent.withValues(alpha: 0.8),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
@@ -711,15 +740,16 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
                           Icon(
                             isAdded ? Icons.person_add : Icons.person_remove,
                             color: isAdded
-                                ? Colors.greenAccent.withOpacity(0.7)
-                                : Colors.redAccent.withOpacity(0.7),
+                                ? Colors.greenAccent.withValues(alpha: 0.7)
+                                : Colors.redAccent.withValues(alpha: 0.7),
                             size: 14,
                           ),
                           const SizedBox(width: 6),
                           Text(
                             '${isAdded ? "加入" : "离开"}: ${event.playerName}',
                             style: GoogleFonts.notoSansSc(
-                              color: Colors.white.withOpacity(0.6), fontSize: 12,
+                              color: Colors.white.withValues(alpha: 0.6),
+                              fontSize: 12,
                             ),
                           ),
                         ],
@@ -732,30 +762,39 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
           ],
           const SizedBox(height: 12),
           Wrap(
-            spacing: 12, runSpacing: 8,
+            spacing: 12,
+            runSpacing: 8,
             children: record.playerData.entries.map((entry) {
               final name = playerNames[entry.key] ?? entry.value.playerName;
               final change = entry.value.scoreChange;
-              final changeStr = change > 0 ? '+$change' : (change < 0 ? '$change' : '±0');
+              final changeStr =
+                  change > 0 ? '+$change' : (change < 0 ? '$change' : '±0');
               final changeColor = change > 0
                   ? Colors.greenAccent
                   : (change < 0 ? Colors.redAccent : Colors.white38);
               return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.06),
+                  color: Colors.white.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(name, style: GoogleFonts.notoSansSc(color: Colors.white70, fontSize: 13)),
+                    Text(name,
+                        style: GoogleFonts.notoSansSc(
+                            color: Colors.white70, fontSize: 13)),
                     const SizedBox(width: 8),
-                    Text(changeStr, style: GoogleFonts.outfit(
-                        color: changeColor, fontSize: 14, fontWeight: FontWeight.w600)),
+                    Text(changeStr,
+                        style: GoogleFonts.outfit(
+                            color: changeColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600)),
                     const SizedBox(width: 4),
                     Text('→ ${entry.value.totalScoreAfter}',
-                        style: GoogleFonts.outfit(color: Colors.white38, fontSize: 12)),
+                        style: GoogleFonts.outfit(
+                            color: Colors.white38, fontSize: 12)),
                   ],
                 ),
               );
@@ -767,9 +806,10 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
               width: double.infinity,
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Colors.blueAccent.withOpacity(0.08),
+                color: Colors.blueAccent.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.blueAccent.withOpacity(0.15)),
+                border: Border.all(
+                    color: Colors.blueAccent.withValues(alpha: 0.15)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -777,11 +817,14 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
                   Row(
                     children: [
                       Icon(Icons.swap_horiz,
-                          color: Colors.blueAccent.withOpacity(0.7), size: 16),
+                          color: Colors.blueAccent.withValues(alpha: 0.7),
+                          size: 16),
                       const SizedBox(width: 6),
-                      Text('分数转移', style: GoogleFonts.notoSansSc(
-                          color: Colors.blueAccent.withOpacity(0.8),
-                          fontSize: 12, fontWeight: FontWeight.w600)),
+                      Text('分数转移',
+                          style: GoogleFonts.notoSansSc(
+                              color: Colors.blueAccent.withValues(alpha: 0.8),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600)),
                     ],
                   ),
                   const SizedBox(height: 6),
@@ -790,7 +833,8 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
                         child: Text(
                           '${t.fromPlayerName} → ${t.toPlayerName}: ${t.amount}',
                           style: GoogleFonts.notoSansSc(
-                              color: Colors.white.withOpacity(0.6), fontSize: 12),
+                              color: Colors.white.withValues(alpha: 0.6),
+                              fontSize: 12),
                         ),
                       )),
                 ],
@@ -803,9 +847,10 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
               width: double.infinity,
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Colors.orangeAccent.withOpacity(0.08),
+                color: Colors.orangeAccent.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: Colors.orangeAccent.withOpacity(0.15)),
+                border: Border.all(
+                    color: Colors.orangeAccent.withValues(alpha: 0.15)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -813,11 +858,14 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
                   Row(
                     children: [
                       Icon(Icons.edit,
-                          color: Colors.orangeAccent.withOpacity(0.7), size: 16),
+                          color: Colors.orangeAccent.withValues(alpha: 0.7),
+                          size: 16),
                       const SizedBox(width: 6),
-                      Text('手动编辑', style: GoogleFonts.notoSansSc(
-                          color: Colors.orangeAccent.withOpacity(0.8),
-                          fontSize: 12, fontWeight: FontWeight.w600)),
+                      Text('手动编辑',
+                          style: GoogleFonts.notoSansSc(
+                              color: Colors.orangeAccent.withValues(alpha: 0.8),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600)),
                     ],
                   ),
                   const SizedBox(height: 6),
@@ -829,7 +877,8 @@ class _RoundHistoryScreenState extends State<RoundHistoryScreen> {
                       child: Text(
                         '${e.playerName}: ${e.scoreBefore} → ${e.scoreAfter} ($diffStr)',
                         style: GoogleFonts.notoSansSc(
-                            color: Colors.white.withOpacity(0.6), fontSize: 12),
+                            color: Colors.white.withValues(alpha: 0.6),
+                            fontSize: 12),
                       ),
                     );
                   }),
@@ -912,7 +961,9 @@ class _ExportImageWidget extends StatelessWidget {
           Text(
             gameName.isNotEmpty ? gameName : 'Utopia Scoreboard',
             style: const TextStyle(
-              color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
               decoration: TextDecoration.none,
             ),
           ),
@@ -935,17 +986,19 @@ class _ExportImageWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.2),
+        color: Colors.white.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: Colors.white.withOpacity(0.8), size: 14),
+          Icon(icon, color: Colors.white.withValues(alpha: 0.8), size: 14),
           const SizedBox(width: 4),
-          Text(text, style: TextStyle(
-              color: Colors.white.withOpacity(0.9), fontSize: 12,
-              decoration: TextDecoration.none)),
+          Text(text,
+              style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.9),
+                  fontSize: 12,
+                  decoration: TextDecoration.none)),
         ],
       ),
     );
@@ -977,24 +1030,32 @@ class _ExportImageWidget extends StatelessWidget {
           width: 170,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.06),
+            color: Colors.white.withValues(alpha: 0.06),
             borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: Colors.white.withOpacity(0.1)),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(name, style: const TextStyle(
-                  color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600,
-                  decoration: TextDecoration.none)),
+              Text(name,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      decoration: TextDecoration.none)),
               const SizedBox(height: 6),
-              Text('$latestScore', style: const TextStyle(
-                  color: Color(0xFF667EEA), fontSize: 28, fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.none)),
+              Text('$latestScore',
+                  style: const TextStyle(
+                      color: Color(0xFF667EEA),
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.none)),
               const SizedBox(height: 2),
-              Text('当前积分', style: TextStyle(
-                  color: Colors.white.withOpacity(0.4), fontSize: 11,
-                  decoration: TextDecoration.none)),
+              Text('当前积分',
+                  style: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.4),
+                      fontSize: 11,
+                      decoration: TextDecoration.none)),
             ],
           ),
         );
@@ -1008,39 +1069,47 @@ class _ExportImageWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.04),
+        color: Colors.white.withValues(alpha: 0.04),
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-            child: Text('得分明细', style: TextStyle(
-                color: Colors.white.withOpacity(0.8), fontSize: 16,
-                fontWeight: FontWeight.w600, decoration: TextDecoration.none)),
+            child: Text('得分明细',
+                style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.8),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    decoration: TextDecoration.none)),
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.04),
+              color: Colors.white.withValues(alpha: 0.04),
             ),
             child: Row(
               children: [
                 SizedBox(
                   width: 50,
-                  child: Text('回合', style: TextStyle(
-                      color: Colors.white.withOpacity(0.6), fontSize: 12,
-                      fontWeight: FontWeight.w600, decoration: TextDecoration.none)),
+                  child: Text('回合',
+                      style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.6),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          decoration: TextDecoration.none)),
                 ),
                 ...playerIds.map((id) => Expanded(
-                  child: Text(playerNames[id] ?? '?',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.white.withOpacity(0.6), fontSize: 12,
-                          fontWeight: FontWeight.w600, decoration: TextDecoration.none)),
-                )),
+                      child: Text(playerNames[id] ?? '?',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.6),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              decoration: TextDecoration.none)),
+                    )),
               ],
             ),
           ),
@@ -1048,23 +1117,30 @@ class _ExportImageWidget extends StatelessWidget {
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
               decoration: BoxDecoration(
-                border: Border(top: BorderSide(color: Colors.white.withOpacity(0.04))),
+                border: Border(
+                    top: BorderSide(
+                        color: Colors.white.withValues(alpha: 0.04))),
               ),
               child: Row(
                 children: [
                   SizedBox(
                     width: 50,
-                    child: Text('${record.roundNumber}', style: TextStyle(
-                        color: Colors.white.withOpacity(0.5), fontSize: 12,
-                        decoration: TextDecoration.none)),
+                    child: Text('${record.roundNumber}',
+                        style: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.5),
+                            fontSize: 12,
+                            decoration: TextDecoration.none)),
                   ),
                   ...playerIds.map((id) {
                     final pd = record.playerData[id];
                     if (pd == null) {
                       return Expanded(
-                        child: Text('-', textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white.withOpacity(0.2),
-                                fontSize: 12, decoration: TextDecoration.none)),
+                        child: Text('-',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white.withValues(alpha: 0.2),
+                                fontSize: 12,
+                                decoration: TextDecoration.none)),
                       );
                     }
                     final change = pd.scoreChange;
@@ -1075,12 +1151,18 @@ class _ExportImageWidget extends StatelessWidget {
                     return Expanded(
                       child: Column(
                         children: [
-                          Text('${pd.totalScoreAfter}', textAlign: TextAlign.center,
-                              style: const TextStyle(color: Colors.white,
-                                  fontSize: 13, fontWeight: FontWeight.w500,
+                          Text('${pd.totalScoreAfter}',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
                                   decoration: TextDecoration.none)),
-                          Text(changeStr, textAlign: TextAlign.center,
-                              style: TextStyle(color: changeColor, fontSize: 10,
+                          Text(changeStr,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: changeColor,
+                                  fontSize: 10,
                                   decoration: TextDecoration.none)),
                         ],
                       ),
@@ -1101,9 +1183,9 @@ class _ExportImageWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.03),
+        color: Colors.white.withValues(alpha: 0.03),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withOpacity(0.06)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1113,19 +1195,23 @@ class _ExportImageWidget extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF667EEA).withOpacity(0.2),
+                  color: const Color(0xFF667EEA).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text('第 ${record.roundNumber} 回合',
                     style: const TextStyle(
-                        color: Color(0xFF667EEA), fontSize: 11,
-                        fontWeight: FontWeight.w600, decoration: TextDecoration.none)),
+                        color: Color(0xFF667EEA),
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        decoration: TextDecoration.none)),
               ),
               const Spacer(),
               Text(
                 '${record.timestamp.hour.toString().padLeft(2, '0')}:${record.timestamp.minute.toString().padLeft(2, '0')}',
-                style: TextStyle(color: Colors.white.withOpacity(0.3),
-                    fontSize: 10, decoration: TextDecoration.none),
+                style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.3),
+                    fontSize: 10,
+                    decoration: TextDecoration.none),
               ),
             ],
           ),
@@ -1141,13 +1227,17 @@ class _ExportImageWidget extends StatelessWidget {
                   children: [
                     Icon(
                       isAdded ? Icons.person_add : Icons.person_remove,
-                      color: isAdded ? Colors.greenAccent.withOpacity(0.6) : Colors.redAccent.withOpacity(0.6),
+                      color: isAdded
+                          ? Colors.greenAccent.withValues(alpha: 0.6)
+                          : Colors.redAccent.withValues(alpha: 0.6),
                       size: 12,
                     ),
                     const SizedBox(width: 4),
                     Text('${isAdded ? "加入" : "离开"}: ${event.playerName}',
-                        style: TextStyle(color: Colors.white.withOpacity(0.5),
-                            fontSize: 10, decoration: TextDecoration.none)),
+                        style: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.5),
+                            fontSize: 10,
+                            decoration: TextDecoration.none)),
                   ],
                 ),
               );
@@ -1155,33 +1245,43 @@ class _ExportImageWidget extends StatelessWidget {
           ],
           const SizedBox(height: 6),
           Wrap(
-            spacing: 8, runSpacing: 4,
+            spacing: 8,
+            runSpacing: 4,
             children: record.playerData.entries.map((entry) {
               final name = playerNames[entry.key] ?? entry.value.playerName;
               final change = entry.value.scoreChange;
-              final changeStr = change > 0 ? '+$change' : (change < 0 ? '$change' : '±0');
+              final changeStr =
+                  change > 0 ? '+$change' : (change < 0 ? '$change' : '±0');
               final changeColor = change > 0
                   ? Colors.greenAccent
                   : (change < 0 ? Colors.redAccent : Colors.white38);
               return Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.05),
+                  color: Colors.white.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(name, style: TextStyle(color: Colors.white.withOpacity(0.6),
-                        fontSize: 11, decoration: TextDecoration.none)),
+                    Text(name,
+                        style: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.6),
+                            fontSize: 11,
+                            decoration: TextDecoration.none)),
                     const SizedBox(width: 6),
-                    Text(changeStr, style: TextStyle(color: changeColor,
-                        fontSize: 12, fontWeight: FontWeight.w600,
-                        decoration: TextDecoration.none)),
+                    Text(changeStr,
+                        style: TextStyle(
+                            color: changeColor,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            decoration: TextDecoration.none)),
                     const SizedBox(width: 4),
                     Text('→ ${entry.value.totalScoreAfter}',
-                        style: TextStyle(color: Colors.white.withOpacity(0.3),
-                            fontSize: 10, decoration: TextDecoration.none)),
+                        style: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.3),
+                            fontSize: 10,
+                            decoration: TextDecoration.none)),
                   ],
                 ),
               );
@@ -1193,8 +1293,10 @@ class _ExportImageWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 2),
                   child: Text(
                     '⇌ ${t.fromPlayerName} → ${t.toPlayerName}: ${t.amount}',
-                    style: TextStyle(color: Colors.blueAccent.withOpacity(0.6),
-                        fontSize: 10, decoration: TextDecoration.none),
+                    style: TextStyle(
+                        color: Colors.blueAccent.withValues(alpha: 0.6),
+                        fontSize: 10,
+                        decoration: TextDecoration.none),
                   ),
                 )),
           ],
@@ -1212,7 +1314,7 @@ class _ExportImageWidget extends StatelessWidget {
         'Utopia Scoreboard · ${now.year}/${now.month.toString().padLeft(2, '0')}/${now.day.toString().padLeft(2, '0')} ${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')} 导出',
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: Colors.white.withOpacity(0.25),
+          color: Colors.white.withValues(alpha: 0.25),
           fontSize: 11,
           decoration: TextDecoration.none,
         ),

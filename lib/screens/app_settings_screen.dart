@@ -24,13 +24,13 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
   bool get _isDesktop =>
       !kIsWeb &&
       (defaultTargetPlatform == TargetPlatform.windows ||
-       defaultTargetPlatform == TargetPlatform.macOS ||
-       defaultTargetPlatform == TargetPlatform.linux);
+          defaultTargetPlatform == TargetPlatform.macOS ||
+          defaultTargetPlatform == TargetPlatform.linux);
 
   bool get _isMobile =>
       !kIsWeb &&
       (defaultTargetPlatform == TargetPlatform.android ||
-       defaultTargetPlatform == TargetPlatform.iOS);
+          defaultTargetPlatform == TargetPlatform.iOS);
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +54,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (_) => const ScoreStepsEditor()),
+                MaterialPageRoute(builder: (_) => const ScoreStepsEditor()),
               );
             },
           ),
@@ -96,8 +95,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (_) => const AboutScreen()),
+                MaterialPageRoute(builder: (_) => const AboutScreen()),
               );
             },
           ),
@@ -120,10 +118,9 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.05),
+            color: Colors.white.withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-                color: Colors.white.withOpacity(0.08)),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
           ),
           child: Row(
             children: [
@@ -131,18 +128,15 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 width: 44,
                 height: 44,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF667EEA)
-                      .withOpacity(0.15),
+                  color: const Color(0xFF667EEA).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(icon,
-                    color: const Color(0xFF667EEA), size: 22),
+                child: Icon(icon, color: const Color(0xFF667EEA), size: 22),
               ),
               const SizedBox(width: 16),
               Expanded(
                 child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       title,
@@ -156,7 +150,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                     Text(
                       subtitle,
                       style: GoogleFonts.notoSansSc(
-                        color: Colors.white.withOpacity(0.4),
+                        color: Colors.white.withValues(alpha: 0.4),
                         fontSize: 13,
                       ),
                     ),
@@ -164,8 +158,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                 ),
               ),
               Icon(Icons.chevron_right,
-                  color: Colors.white.withOpacity(0.3),
-                  size: 22),
+                  color: Colors.white.withValues(alpha: 0.3), size: 22),
             ],
           ),
         ),
@@ -181,8 +174,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
       for (final key in allKeys) {
         exportData[key] = prefs.get(key);
       }
-      final jsonStr = const JsonEncoder.withIndent('  ')
-          .convert(exportData);
+      final jsonStr = const JsonEncoder.withIndent('  ').convert(exportData);
 
       // Save to file
       final now = DateTime.now();
@@ -259,8 +251,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
 
       final file = File(filePath);
       final jsonStr = await file.readAsString();
-      final importData =
-          jsonDecode(jsonStr) as Map<String, dynamic>;
+      final importData = jsonDecode(jsonStr) as Map<String, dynamic>;
 
       final prefs = await SharedPreferences.getInstance();
       for (final entry in importData.entries) {
@@ -274,8 +265,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
         } else if (value is bool) {
           await prefs.setBool(entry.key, value);
         } else if (value is List) {
-          await prefs.setStringList(
-              entry.key, value.cast<String>());
+          await prefs.setStringList(entry.key, value.cast<String>());
         }
       }
 

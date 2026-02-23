@@ -22,12 +22,12 @@ class ScoreRow extends StatelessWidget {
       constraints: BoxConstraints(maxWidth: screenSize.width - 24),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.55),
+        color: Colors.black.withValues(alpha: 0.55),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withOpacity(0.12)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: Colors.black.withValues(alpha: 0.2),
             blurRadius: 8,
             spreadRadius: 1,
           ),
@@ -72,7 +72,7 @@ class _SignToggle extends StatelessWidget {
         padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
           color: (game.isNegative ? Colors.redAccent : Colors.greenAccent)
-              .withOpacity(0.15),
+              .withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Icon(
@@ -98,8 +98,8 @@ class _ScoreStepButton extends StatelessWidget {
         onPressed: () => game.applyScoreChange(step),
         style: ElevatedButton.styleFrom(
           backgroundColor: game.isNegative
-              ? Colors.red.withOpacity(0.65)
-              : Colors.green.withOpacity(0.65),
+              ? Colors.red.withValues(alpha: 0.65)
+              : Colors.green.withValues(alpha: 0.65),
           foregroundColor: Colors.white,
           minimumSize: const Size(34, 30),
           padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -113,4 +113,3 @@ class _ScoreStepButton extends StatelessWidget {
     );
   }
 }
-

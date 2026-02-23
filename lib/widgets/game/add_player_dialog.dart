@@ -53,8 +53,7 @@ class _AddPlayerDialogState extends State<AddPlayerDialog> {
               const SizedBox(height: 20),
               _field(_nameCtrl, '名字', autofocus: true),
               const SizedBox(height: 14),
-              _field(_scoreCtrl, '初始分数',
-                  keyboard: TextInputType.number),
+              _field(_scoreCtrl, '初始分数', keyboard: TextInputType.number),
               const SizedBox(height: 20),
               Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 TextButton(
@@ -74,8 +73,8 @@ class _AddPlayerDialogState extends State<AddPlayerDialog> {
                         horizontal: 24, vertical: 12),
                   ),
                   child: Text('添加',
-                      style: GoogleFonts.notoSansSc(
-                          fontWeight: FontWeight.w600)),
+                      style:
+                          GoogleFonts.notoSansSc(fontWeight: FontWeight.w600)),
                 ),
               ]),
             ],
@@ -96,14 +95,14 @@ class _AddPlayerDialogState extends State<AddPlayerDialog> {
         labelText: label,
         labelStyle: GoogleFonts.notoSansSc(color: Colors.white54),
         filled: true,
-        fillColor: Colors.white.withOpacity(0.08),
+        fillColor: Colors.white.withValues(alpha: 0.08),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide(color: Colors.white.withOpacity(0.1)),
+          borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide(color: Colors.white.withOpacity(0.1)),
+          borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
@@ -126,11 +125,10 @@ class _AddPlayerDialogState extends State<AddPlayerDialog> {
       double bestMinDist = -1;
 
       for (int attempt = 0; attempt < 50; attempt++) {
-        double testX = 20.0 +
-            (attempt % 5) * ((screenSize.width - cardWidth - 40) / 4);
+        double testX =
+            20.0 + (attempt % 5) * ((screenSize.width - cardWidth - 40) / 4);
         double testY = 50.0 +
-            (attempt ~/ 5) *
-                ((screenSize.height - cardHeight - 100) / 9);
+            (attempt ~/ 5) * ((screenSize.height - cardHeight - 100) / 9);
         testX = testX.clamp(10, screenSize.width - cardWidth - 10);
         testY = testY.clamp(10, screenSize.height - cardHeight - 70);
 
@@ -151,4 +149,3 @@ class _AddPlayerDialogState extends State<AddPlayerDialog> {
     }
   }
 }
-

@@ -6,6 +6,10 @@ A cross-platform scoreboard for Mahjong, Card Game or Table Game.
 ## 开发初衷
 过年天天打麻将斗地主。新时代新青年咱们不赌钱，但是总得计分才知道谁输谁赢谁运气好谁技术差，所以开发一个计分板来简单记录一下。  
 
+## 下载
+技术预览  
+[点击前往 GitHub Release 下载](http://github.com/UtopiaXC/UtopiaScoreboard/releases/latest)
+
 ## 引用的开源许可证
 见应用内设置页详情选项。
 

@@ -83,7 +83,7 @@ class _AboutScreenState extends State<AboutScreen> {
             child: Text(
               'Version $_version',
               style: GoogleFonts.notoSansSc(
-                color: Colors.white.withOpacity(0.4),
+                color: Colors.white.withValues(alpha: 0.4),
                 fontSize: 14,
               ),
             ),
@@ -94,9 +94,9 @@ class _AboutScreenState extends State<AboutScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.05),
+                color: Colors.white.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.white.withOpacity(0.08)),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
               ),
               child: Column(
                 children: [
@@ -163,7 +163,7 @@ class _AboutScreenState extends State<AboutScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         child: Row(
           children: [
-            Icon(icon, color: Colors.white.withOpacity(0.5), size: 22),
+            Icon(icon, color: Colors.white.withValues(alpha: 0.5), size: 22),
             const SizedBox(width: 14),
             Expanded(
               child: Column(
@@ -175,14 +175,14 @@ class _AboutScreenState extends State<AboutScreen> {
                   if (subtitle != null)
                     Text(subtitle,
                         style: GoogleFonts.notoSansSc(
-                            color: Colors.white.withOpacity(0.4),
+                            color: Colors.white.withValues(alpha: 0.4),
                             fontSize: 12),
                         overflow: TextOverflow.ellipsis),
                 ],
               ),
             ),
             Icon(Icons.chevron_right,
-                color: Colors.white.withOpacity(0.3), size: 20),
+                color: Colors.white.withValues(alpha: 0.3), size: 20),
           ],
         ),
       ),
@@ -191,10 +191,9 @@ class _AboutScreenState extends State<AboutScreen> {
 
   Widget _divider() {
     return Divider(
-      color: Colors.white.withOpacity(0.06),
+      color: Colors.white.withValues(alpha: 0.06),
       height: 1,
       indent: 52,
     );
   }
 }
-

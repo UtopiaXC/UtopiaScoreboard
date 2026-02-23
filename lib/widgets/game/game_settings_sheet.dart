@@ -76,7 +76,8 @@ class GameSettingsSheet extends StatelessWidget {
                     foregroundColor: Colors.white54,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                   ),
-                  child: Text('关闭', style: GoogleFonts.notoSansSc(fontSize: 16)),
+                  child:
+                      Text('关闭', style: GoogleFonts.notoSansSc(fontSize: 16)),
                 ),
               ),
             ),
@@ -94,7 +95,7 @@ class GameSettingsSheet extends StatelessWidget {
         width: 40,
         height: 4,
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.2),
+          color: Colors.white.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(2),
         ),
       ),
@@ -108,7 +109,7 @@ class GameSettingsSheet extends StatelessWidget {
         text,
         textAlign: TextAlign.left,
         style: GoogleFonts.notoSansSc(
-          color: Colors.white.withOpacity(0.4),
+          color: Colors.white.withValues(alpha: 0.4),
           fontSize: 12,
         ),
       ),
@@ -138,7 +139,7 @@ class _SettingSwitch extends StatelessWidget {
         Expanded(
           child: Text(label,
               style: GoogleFonts.notoSansSc(
-                  color: Colors.white.withOpacity(0.9), fontSize: 15)),
+                  color: Colors.white.withValues(alpha: 0.9), fontSize: 15)),
         ),
         Switch(
           value: value,
@@ -161,7 +162,7 @@ class _BackgroundSection extends StatelessWidget {
       children: [
         Text('背景',
             style: GoogleFonts.notoSansSc(
-                color: Colors.white.withOpacity(0.7),
+                color: Colors.white.withValues(alpha: 0.7),
                 fontSize: 14,
                 fontWeight: FontWeight.w500)),
         const SizedBox(height: 12),
@@ -210,12 +211,12 @@ class _BackgroundTypeChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSelected
               ? const Color(0xFF667EEA)
-              : Colors.white.withOpacity(0.08),
+              : Colors.white.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: isSelected
                 ? const Color(0xFF667EEA)
-                : Colors.white.withOpacity(0.1),
+                : Colors.white.withValues(alpha: 0.1),
           ),
         ),
         child: Text(label,
@@ -251,8 +252,7 @@ class _MonetPaletteSelector extends StatelessWidget {
         itemCount: _monetPalettes.length,
         itemBuilder: (context, index) {
           final palette = _monetPalettes[index];
-          final isSelected =
-              game.backgroundConfig.monetPaletteIndex == index;
+          final isSelected = game.backgroundConfig.monetPaletteIndex == index;
           return GestureDetector(
             onTap: () => game.updateBackgroundConfig(
               BackgroundConfig(
@@ -266,7 +266,7 @@ class _MonetPaletteSelector extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 border: isSelected
                     ? Border.all(color: Colors.white, width: 2.5)
-                    : Border.all(color: Colors.white.withOpacity(0.15)),
+                    : Border.all(color: Colors.white.withValues(alpha: 0.15)),
                 gradient: RadialGradient(
                     colors: [palette['center']!, palette['edge']!]),
               ),
@@ -319,7 +319,7 @@ class _SolidColorSelector extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 border: isSelected
                     ? Border.all(color: Colors.white, width: 2.5)
-                    : Border.all(color: Colors.white.withOpacity(0.15)),
+                    : Border.all(color: Colors.white.withValues(alpha: 0.15)),
               ),
               child: isSelected
                   ? const Icon(Icons.check, color: Colors.white, size: 18)
@@ -331,4 +331,3 @@ class _SolidColorSelector extends StatelessWidget {
     );
   }
 }
-

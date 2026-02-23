@@ -15,7 +15,9 @@ class GameStorage {
     if (listJson == null) return [];
 
     final list = jsonDecode(listJson) as List<dynamic>;
-    return list.map((e) => GameSummary.fromJson(e as Map<String, dynamic>)).toList();
+    return list
+        .map((e) => GameSummary.fromJson(e as Map<String, dynamic>))
+        .toList();
   }
 
   /// Save game data

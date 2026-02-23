@@ -41,7 +41,8 @@ class MyApp extends StatelessWidget {
           ),
           actionTextColor: const Color(0xFF667EEA),
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
       ),
       theme: ThemeData(
@@ -62,7 +63,8 @@ class MyApp extends StatelessWidget {
           ),
           actionTextColor: const Color(0xFF667EEA),
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         ),
       ),
       home: const HomeScreen(),

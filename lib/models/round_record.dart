@@ -46,7 +46,8 @@ class RoundRecord {
               .toList() ??
           [],
       playerChanges: (json['playerChanges'] as List<dynamic>?)
-              ?.map((e) => PlayerChangeEvent.fromJson(e as Map<String, dynamic>))
+              ?.map(
+                  (e) => PlayerChangeEvent.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
       timestamp: DateTime.parse(json['timestamp'] as String),
@@ -189,7 +190,9 @@ class PlayerChangeEvent {
 
   factory PlayerChangeEvent.fromJson(Map<String, dynamic> json) {
     return PlayerChangeEvent(
-      type: json['type'] == 'added' ? PlayerChangeType.added : PlayerChangeType.removed,
+      type: json['type'] == 'added'
+          ? PlayerChangeType.added
+          : PlayerChangeType.removed,
       playerId: json['playerId'] as String,
       playerName: json['playerName'] as String,
       timestamp: DateTime.parse(json['timestamp'] as String),

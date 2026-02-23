@@ -67,17 +67,17 @@ class _ControlPanelState extends State<ControlPanel> {
     );
   }
 
-  Widget _buildToolbar(BuildContext context, GameProvider game,
-      Size screenSize, Orientation orientation) {
+  Widget _buildToolbar(BuildContext context, GameProvider game, Size screenSize,
+      Orientation orientation) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.55),
+        color: Colors.black.withValues(alpha: 0.55),
         borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: Colors.white.withOpacity(0.12)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
         boxShadow: [
           BoxShadow(
-              color: Colors.black.withOpacity(0.2),
+              color: Colors.black.withValues(alpha: 0.2),
               blurRadius: 10,
               spreadRadius: 2),
         ],
@@ -149,8 +149,7 @@ class _ControlPanelState extends State<ControlPanel> {
               icon: Icons.history,
               onTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (_) => const RoundHistoryScreen()),
+                  MaterialPageRoute(builder: (_) => const RoundHistoryScreen()),
                 );
               },
             ),
@@ -175,7 +174,7 @@ class _ControlPanelState extends State<ControlPanel> {
         width: 4,
         height: 4,
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.35),
+          color: Colors.white.withValues(alpha: 0.35),
           shape: BoxShape.circle,
         ),
       );
@@ -207,8 +206,8 @@ class _ControlPanelState extends State<ControlPanel> {
           context: context,
           builder: (ctx) => AlertDialog(
             backgroundColor: const Color(0xFF1A202C),
-            title: Text('确认',
-                style: GoogleFonts.notoSansSc(color: Colors.white)),
+            title:
+                Text('确认', style: GoogleFonts.notoSansSc(color: Colors.white)),
             content: Text('当前回合没有分数变化，是否空过进入下一回合？',
                 style: GoogleFonts.notoSansSc(color: Colors.white70)),
             actions: [
@@ -223,8 +222,8 @@ class _ControlPanelState extends State<ControlPanel> {
                   Navigator.pop(ctx);
                 },
                 child: Text('确认',
-                    style: GoogleFonts.notoSansSc(
-                        color: const Color(0xFF667EEA))),
+                    style:
+                        GoogleFonts.notoSansSc(color: const Color(0xFF667EEA))),
               ),
             ],
           ),
@@ -237,8 +236,8 @@ class _ControlPanelState extends State<ControlPanel> {
         context: context,
         builder: (ctx) => AlertDialog(
           backgroundColor: const Color(0xFF1A202C),
-          title: Text('结束回合',
-              style: GoogleFonts.notoSansSc(color: Colors.white)),
+          title:
+              Text('结束回合', style: GoogleFonts.notoSansSc(color: Colors.white)),
           content: Text('确认结束当前回合并进入下一回合？',
               style: GoogleFonts.notoSansSc(color: Colors.white70)),
           actions: [
@@ -253,8 +252,8 @@ class _ControlPanelState extends State<ControlPanel> {
                 Navigator.pop(ctx);
               },
               child: Text('确认',
-                  style: GoogleFonts.notoSansSc(
-                      color: const Color(0xFF667EEA))),
+                  style:
+                      GoogleFonts.notoSansSc(color: const Color(0xFF667EEA))),
             ),
           ],
         ),
@@ -285,8 +284,7 @@ class _ControlPanelState extends State<ControlPanel> {
           child: Row(children: [
             const Icon(Icons.settings, color: Colors.white70, size: 20),
             const SizedBox(width: 10),
-            Text('设置',
-                style: GoogleFonts.notoSansSc(color: Colors.white)),
+            Text('设置', style: GoogleFonts.notoSansSc(color: Colors.white)),
           ]),
         ),
       ],

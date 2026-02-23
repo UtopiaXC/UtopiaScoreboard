@@ -50,8 +50,7 @@ class _PlayerItemState extends State<PlayerItem> {
         PopupMenuItem(
           value: 'delete',
           child: Row(children: [
-            const Icon(Icons.delete_outline,
-                color: Colors.redAccent, size: 20),
+            const Icon(Icons.delete_outline, color: Colors.redAccent, size: 20),
             const SizedBox(width: 10),
             Text('删除玩家',
                 style: GoogleFonts.notoSansSc(color: Colors.redAccent)),
@@ -83,15 +82,14 @@ class _PlayerItemState extends State<PlayerItem> {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: const Color(0xFF1A202C),
-        title:
-            Text('删除玩家', style: GoogleFonts.notoSansSc(color: Colors.white)),
+        title: Text('删除玩家', style: GoogleFonts.notoSansSc(color: Colors.white)),
         content: Text('确定要删除 ${widget.player.name} 吗？',
             style: GoogleFonts.notoSansSc(color: Colors.white70)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child:
-                Text('取消', style: GoogleFonts.notoSansSc(color: Colors.white54)),
+            child: Text('取消',
+                style: GoogleFonts.notoSansSc(color: Colors.white54)),
           ),
           TextButton(
             onPressed: () {
@@ -127,8 +125,7 @@ class _PlayerItemState extends State<PlayerItem> {
       },
       onScaleUpdate: (details) {
         if (details.pointerCount >= 2) {
-          game.updatePlayerScale(
-              widget.player.id, _baseScale * details.scale);
+          game.updatePlayerScale(widget.player.id, _baseScale * details.scale);
         }
       },
       child: Draggable<Player>(
@@ -188,7 +185,7 @@ class _PlayerItemState extends State<PlayerItem> {
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.greenAccent.withOpacity(0.4),
+                            color: Colors.greenAccent.withValues(alpha: 0.4),
                             blurRadius: 12,
                             spreadRadius: 2,
                           ),
@@ -209,4 +206,3 @@ class _PlayerItemState extends State<PlayerItem> {
     );
   }
 }
-

@@ -50,8 +50,7 @@ class TransferDialog extends StatelessWidget {
                   _PlayerRow(
                     from: from,
                     to: to,
-                    onReverse: () =>
-                        setDialogState(() => reversed = !reversed),
+                    onReverse: () => setDialogState(() => reversed = !reversed),
                   ),
                   const SizedBox(height: 8),
                   Text('点击箭头可反向',
@@ -74,18 +73,17 @@ class TransferDialog extends StatelessWidget {
                     alignment: WrapAlignment.center,
                     children: game.scoreSteps
                         .map((step) => ElevatedButton(
-                              onPressed: () => setDialogState(
-                                  () => transferAmount += step),
+                              onPressed: () =>
+                                  setDialogState(() => transferAmount += step),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    const Color(0xFF667EEA).withOpacity(0.8),
+                                backgroundColor: const Color(0xFF667EEA)
+                                    .withValues(alpha: 0.8),
                                 foregroundColor: Colors.white,
                                 minimumSize: const Size(44, 34),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
                                 shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(10)),
+                                    borderRadius: BorderRadius.circular(10)),
                                 elevation: 0,
                               ),
                               child: Text('+$step',
@@ -95,8 +93,7 @@ class TransferDialog extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   TextButton(
-                    onPressed: () =>
-                        setDialogState(() => transferAmount = 0),
+                    onPressed: () => setDialogState(() => transferAmount = 0),
                     child: Text('重置',
                         style: GoogleFonts.notoSansSc(
                             color: Colors.white38, fontSize: 12)),
@@ -108,8 +105,8 @@ class TransferDialog extends StatelessWidget {
                       TextButton(
                         onPressed: () => Navigator.pop(ctx),
                         child: Text('取消',
-                            style: GoogleFonts.notoSansSc(
-                                color: Colors.white54)),
+                            style:
+                                GoogleFonts.notoSansSc(color: Colors.white54)),
                       ),
                       const SizedBox(width: 8),
                       ElevatedButton(
@@ -124,7 +121,7 @@ class TransferDialog extends StatelessWidget {
                           backgroundColor: const Color(0xFF667EEA),
                           foregroundColor: Colors.white,
                           disabledBackgroundColor:
-                              Colors.grey.withOpacity(0.3),
+                              Colors.grey.withValues(alpha: 0.3),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12)),
                           elevation: 0,
@@ -165,11 +162,11 @@ class _PlayerRow extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.08),
+              color: Colors.white.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(Icons.arrow_forward,
-                color: Colors.greenAccent.withOpacity(0.8), size: 28),
+                color: Colors.greenAccent.withValues(alpha: 0.8), size: 28),
           ),
         ),
         const SizedBox(width: 12),
@@ -192,4 +189,3 @@ class _PlayerRow extends StatelessWidget {
     ]);
   }
 }
-

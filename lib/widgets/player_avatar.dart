@@ -44,10 +44,10 @@ class PlayerAvatar extends StatelessWidget {
                 padding: const EdgeInsets.only(
                     left: 50, right: 8, top: 4, bottom: 4),
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.10),
+                  color: Colors.black.withValues(alpha: 0.10),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: Colors.white.withOpacity(0.15),
+                    color: Colors.white.withValues(alpha: 0.15),
                     width: 1,
                   ),
                 ),
@@ -76,7 +76,7 @@ class PlayerAvatar extends StatelessWidget {
                                 child: Text(
                                   '积分：${player.totalScore}',
                                   style: GoogleFonts.notoSansSc(
-                                    color: Colors.white.withOpacity(0.9),
+                                    color: Colors.white.withValues(alpha: 0.9),
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -113,7 +113,7 @@ class PlayerAvatar extends StatelessWidget {
                           padding: const EdgeInsets.all(4),
                           child: Icon(
                             Icons.more_vert,
-                            color: Colors.white.withOpacity(0.6),
+                            color: Colors.white.withValues(alpha: 0.6),
                             size: 20,
                           ),
                         ),
@@ -135,12 +135,12 @@ class PlayerAvatar extends StatelessWidget {
                   boxShadow: [
                     if (isSelected)
                       BoxShadow(
-                        color: Colors.yellowAccent.withOpacity(0.6),
+                        color: Colors.yellowAccent.withValues(alpha: 0.6),
                         blurRadius: 15,
                         spreadRadius: 2,
                       ),
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
+                      color: Colors.black.withValues(alpha: 0.3),
                       blurRadius: 4,
                       offset: const Offset(2, 2),
                     ),

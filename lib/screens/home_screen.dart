@@ -36,8 +36,7 @@ class _HomeScreenState extends State<HomeScreen>
       vsync: this,
       duration: const Duration(milliseconds: 800),
     );
-    _fadeAnim =
-        CurvedAnimation(parent: _animController, curve: Curves.easeOut);
+    _fadeAnim = CurvedAnimation(parent: _animController, curve: Curves.easeOut);
     _loadGames();
     // Auto-check for updates after a small delay
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -91,123 +90,121 @@ class _HomeScreenState extends State<HomeScreen>
       child: Scaffold(
         body: Stack(
           children: [
-          // Background
-          Positioned.fill(
-            child: GameBackground(
-              config: BackgroundConfig(
-                type: BackgroundType.monet,
-                monetPaletteIndex: 6,
-              ),
-            ),
-          ),
-          // Content
-          SafeArea(
-            child: FadeTransition(
-              opacity: _fadeAnim,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.only(bottom: 80),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 40),
-                    // Title
-                    Text(
-                      'Utopia Scoreboard',
-                      style: GoogleFonts.outfit(
-                        fontSize: 36,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        letterSpacing: 1.5,
-                        shadows: [
-                          Shadow(
-                            color: Colors.black.withOpacity(0.3),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      '桌游计分器',
-                      style: GoogleFonts.notoSansSc(
-                        fontSize: 16,
-                        color: Colors.white.withOpacity(0.7),
-                        letterSpacing: 2,
-                      ),
-                    ),
-                    const SizedBox(height: 40),
-
-                    // New Game Button
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32),
-                      child: _HeroButton(
-                        icon: Icons.add_rounded,
-                        label: '新建游戏',
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
-                        ),
-                        onTap: () => _showNewGameSheet(context),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-
-                    // Saved Games List
-                    if (!_isLoading && _savedGames.isNotEmpty) ...[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32),
-                        child: Row(
-                          children: [
-                            Text(
-                              '继续游戏',
-                              style: GoogleFonts.notoSansSc(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white.withOpacity(0.9),
-                              ),
-                            ),
-                            const Spacer(),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      // Render all cards inline (no nested ListView)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32),
-                        child: Column(
-                          children: _savedGames.map((game) {
-                            return _SavedGameCard(
-                              game: game,
-                              onTap: () => _loadGame(game.id),
-                              onEdit: () =>
-                                  _showEditGameSheet(context, game),
-                              onDelete: () => _deleteGame(game.id),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ] else if (!_isLoading) ...[
-                      const SizedBox(height: 60),
-                      Icon(Icons.sports_esports_outlined,
-                          size: 80,
-                          color: Colors.white.withOpacity(0.15)),
-                      const SizedBox(height: 16),
-                      Text(
-                        '还没有保存的游戏',
-                        style: GoogleFonts.notoSansSc(
-                          color: Colors.white.withOpacity(0.4),
-                          fontSize: 16,
-                        ),
-                      ),
-                    ] else ...[
-                      const SizedBox(height: 60),
-                      const CircularProgressIndicator(
-                          color: Colors.white54),
-                    ],
-                  ],
+            // Background
+            Positioned.fill(
+              child: GameBackground(
+                config: BackgroundConfig(
+                  type: BackgroundType.monet,
+                  monetPaletteIndex: 6,
                 ),
               ),
             ),
-          ),
+            // Content
+            SafeArea(
+              child: FadeTransition(
+                opacity: _fadeAnim,
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.only(bottom: 80),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 40),
+                      // Title
+                      Text(
+                        'Utopia Scoreboard',
+                        style: GoogleFonts.outfit(
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          letterSpacing: 1.5,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withValues(alpha: 0.3),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        '桌游计分器',
+                        style: GoogleFonts.notoSansSc(
+                          fontSize: 16,
+                          color: Colors.white.withValues(alpha: 0.7),
+                          letterSpacing: 2,
+                        ),
+                      ),
+                      const SizedBox(height: 40),
+
+                      // New Game Button
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 32),
+                        child: _HeroButton(
+                          icon: Icons.add_rounded,
+                          label: '新建游戏',
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFF667EEA), Color(0xFF764BA2)],
+                          ),
+                          onTap: () => _showNewGameSheet(context),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+
+                      // Saved Games List
+                      if (!_isLoading && _savedGames.isNotEmpty) ...[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32),
+                          child: Row(
+                            children: [
+                              Text(
+                                '继续游戏',
+                                style: GoogleFonts.notoSansSc(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white.withValues(alpha: 0.9),
+                                ),
+                              ),
+                              const Spacer(),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        // Render all cards inline (no nested ListView)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 32),
+                          child: Column(
+                            children: _savedGames.map((game) {
+                              return _SavedGameCard(
+                                game: game,
+                                onTap: () => _loadGame(game.id),
+                                onEdit: () => _showEditGameSheet(context, game),
+                                onDelete: () => _deleteGame(game.id),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ] else if (!_isLoading) ...[
+                        const SizedBox(height: 60),
+                        Icon(Icons.sports_esports_outlined,
+                            size: 80,
+                            color: Colors.white.withValues(alpha: 0.15)),
+                        const SizedBox(height: 16),
+                        Text(
+                          '还没有保存的游戏',
+                          style: GoogleFonts.notoSansSc(
+                            color: Colors.white.withValues(alpha: 0.4),
+                            fontSize: 16,
+                          ),
+                        ),
+                      ] else ...[
+                        const SizedBox(height: 60),
+                        const CircularProgressIndicator(color: Colors.white54),
+                      ],
+                    ],
+                  ),
+                ),
+              ),
+            ),
 
             // Bottom-right: rotate + settings buttons
             Positioned(
@@ -220,8 +217,7 @@ class _HomeScreenState extends State<HomeScreen>
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () async {
-                        final orientation =
-                            MediaQuery.of(context).orientation;
+                        final orientation = MediaQuery.of(context).orientation;
                         if (orientation == Orientation.portrait) {
                           await SystemChrome.setPreferredOrientations([
                             DeviceOrientation.landscapeLeft,
@@ -239,13 +235,14 @@ class _HomeScreenState extends State<HomeScreen>
                         width: 44,
                         height: 44,
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.30),
+                          color: Colors.black.withValues(alpha: 0.30),
                           shape: BoxShape.circle,
                           border: Border.all(
-                              color: Colors.white.withOpacity(0.1)),
+                              color: Colors.white.withValues(alpha: 0.1)),
                         ),
                         child: Icon(Icons.screen_rotation,
-                            color: Colors.white.withOpacity(0.7), size: 20),
+                            color: Colors.white.withValues(alpha: 0.7),
+                            size: 20),
                       ),
                     ),
                   ),
@@ -265,13 +262,14 @@ class _HomeScreenState extends State<HomeScreen>
                         width: 44,
                         height: 44,
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.30),
+                          color: Colors.black.withValues(alpha: 0.30),
                           shape: BoxShape.circle,
                           border: Border.all(
-                              color: Colors.white.withOpacity(0.1)),
+                              color: Colors.white.withValues(alpha: 0.1)),
                         ),
                         child: Icon(Icons.settings,
-                            color: Colors.white.withOpacity(0.7), size: 20),
+                            color: Colors.white.withValues(alpha: 0.7),
+                            size: 20),
                       ),
                     ),
                   ),
@@ -322,8 +320,7 @@ class _HomeScreenState extends State<HomeScreen>
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: const Color(0xFF1A202C),
-        title: Text('删除游戏',
-            style: GoogleFonts.notoSansSc(color: Colors.white)),
+        title: Text('删除游戏', style: GoogleFonts.notoSansSc(color: Colors.white)),
         content: Text('确定要删除这个游戏记录吗？此操作无法撤销。',
             style: GoogleFonts.notoSansSc(color: Colors.white70)),
         actions: [
@@ -335,8 +332,7 @@ class _HomeScreenState extends State<HomeScreen>
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             child: Text('删除',
-                style:
-                    GoogleFonts.notoSansSc(color: Colors.redAccent)),
+                style: GoogleFonts.notoSansSc(color: Colors.redAccent)),
           ),
         ],
       ),
@@ -388,7 +384,7 @@ class _HeroButtonState extends State<_HeroButton> {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF667EEA).withOpacity(0.4),
+                color: const Color(0xFF667EEA).withValues(alpha: 0.4),
                 blurRadius: 20,
                 offset: const Offset(0, 8),
               ),
@@ -453,10 +449,9 @@ class _SavedGameCard extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.08),
+              color: Colors.white.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(16),
-              border:
-                  Border.all(color: Colors.white.withOpacity(0.1)),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
             ),
             child: Row(
               children: [
@@ -465,7 +460,7 @@ class _SavedGameCard extends StatelessWidget {
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.1),
+                    color: Colors.white.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Icon(Icons.casino_outlined,
@@ -489,7 +484,7 @@ class _SavedGameCard extends StatelessWidget {
                       Text(
                         '${game.playerCount} 位玩家 · 第 ${game.currentRound} 回合 · $timeText',
                         style: GoogleFonts.notoSansSc(
-                          color: Colors.white.withOpacity(0.5),
+                          color: Colors.white.withValues(alpha: 0.5),
                           fontSize: 13,
                         ),
                       ),
@@ -525,8 +520,7 @@ class _SavedGameMenuButton extends StatelessWidget {
     final GlobalKey btnKey = GlobalKey();
     return IconButton(
       key: btnKey,
-      icon: Icon(Icons.more_vert,
-          color: Colors.white.withOpacity(0.4)),
+      icon: Icon(Icons.more_vert, color: Colors.white.withValues(alpha: 0.4)),
       onPressed: () {
         final renderBox =
             btnKey.currentContext?.findRenderObject() as RenderBox?;
@@ -543,19 +537,17 @@ class _SavedGameMenuButton extends StatelessWidget {
             pos.dy + size.height + 1,
           ),
           color: const Color(0xFF2D3748),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           items: [
             PopupMenuItem(
               value: 'edit',
               child: Row(
                 children: [
-                  const Icon(Icons.edit,
-                      color: Colors.white70, size: 20),
+                  const Icon(Icons.edit, color: Colors.white70, size: 20),
                   const SizedBox(width: 10),
                   Text('编辑',
-                      style: GoogleFonts.notoSansSc(
-                          color: Colors.white)),
+                      style: GoogleFonts.notoSansSc(color: Colors.white)),
                 ],
               ),
             ),
@@ -567,8 +559,7 @@ class _SavedGameMenuButton extends StatelessWidget {
                       color: Colors.redAccent, size: 20),
                   const SizedBox(width: 10),
                   Text('删除',
-                      style: GoogleFonts.notoSansSc(
-                          color: Colors.redAccent)),
+                      style: GoogleFonts.notoSansSc(color: Colors.redAccent)),
                 ],
               ),
             ),
@@ -622,8 +613,7 @@ class _NewGameSheetState extends State<_NewGameSheet> {
       ),
       decoration: const BoxDecoration(
         color: Color(0xFF1A202C),
-        borderRadius:
-            BorderRadius.vertical(top: Radius.circular(24)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -634,7 +624,7 @@ class _NewGameSheetState extends State<_NewGameSheet> {
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -663,8 +653,7 @@ class _NewGameSheetState extends State<_NewGameSheet> {
                   const SizedBox(height: 8),
                   TextField(
                     controller: _nameController,
-                    style: GoogleFonts.notoSansSc(
-                        color: Colors.white),
+                    style: GoogleFonts.notoSansSc(color: Colors.white),
                     decoration: _inputDecoration('输入游戏名称'),
                   ),
                   const SizedBox(height: 20),
@@ -675,12 +664,10 @@ class _NewGameSheetState extends State<_NewGameSheet> {
                   Row(
                     children: [
                       IconButton(
-                        icon: const Icon(
-                            Icons.remove_circle_outline,
+                        icon: const Icon(Icons.remove_circle_outline,
                             color: Colors.white70),
                         onPressed: _playerCount > 1
-                            ? () =>
-                                setState(() => _playerCount--)
+                            ? () => setState(() => _playerCount--)
                             : null,
                       ),
                       Container(
@@ -689,7 +676,7 @@ class _NewGameSheetState extends State<_NewGameSheet> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 8, horizontal: 16),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
+                          color: Colors.white.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
@@ -702,12 +689,10 @@ class _NewGameSheetState extends State<_NewGameSheet> {
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(
-                            Icons.add_circle_outline,
+                        icon: const Icon(Icons.add_circle_outline,
                             color: Colors.white70),
                         onPressed: _playerCount < 12
-                            ? () =>
-                                setState(() => _playerCount++)
+                            ? () => setState(() => _playerCount++)
                             : null,
                       ),
                     ],
@@ -734,45 +719,37 @@ class _NewGameSheetState extends State<_NewGameSheet> {
                   Wrap(
                     spacing: 8,
                     children: [
-                      _buildBackgroundTypeChip(
-                          '莫奈桌布', BackgroundType.monet),
+                      _buildBackgroundTypeChip('莫奈桌布', BackgroundType.monet),
                       _buildBackgroundTypeChip(
                           '纯色桌布', BackgroundType.solidColor),
                     ],
                   ),
                   const SizedBox(height: 12),
 
-                  if (_backgroundType ==
-                      BackgroundType.monet) ...[
+                  if (_backgroundType == BackgroundType.monet) ...[
                     SizedBox(
                       height: 60,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount:
-                            MonetPalettes.palettes.length,
+                        itemCount: MonetPalettes.palettes.length,
                         itemBuilder: (context, index) {
-                          final palette =
-                              MonetPalettes.palettes[index];
-                          final isSelected =
-                              _monetPaletteIndex == index;
+                          final palette = MonetPalettes.palettes[index];
+                          final isSelected = _monetPaletteIndex == index;
                           return GestureDetector(
-                            onTap: () => setState(() =>
-                                _monetPaletteIndex = index),
+                            onTap: () =>
+                                setState(() => _monetPaletteIndex = index),
                             child: Container(
                               width: 52,
                               height: 52,
-                              margin:
-                                  const EdgeInsets.only(right: 8),
+                              margin: const EdgeInsets.only(right: 8),
                               decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(14),
+                                borderRadius: BorderRadius.circular(14),
                                 border: isSelected
                                     ? Border.all(
-                                        color: Colors.white,
-                                        width: 2.5)
+                                        color: Colors.white, width: 2.5)
                                     : Border.all(
                                         color: Colors.white
-                                            .withOpacity(0.15)),
+                                            .withValues(alpha: 0.15)),
                                 gradient: RadialGradient(
                                   colors: [
                                     palette.centerColor,
@@ -782,8 +759,7 @@ class _NewGameSheetState extends State<_NewGameSheet> {
                               ),
                               child: isSelected
                                   ? const Icon(Icons.check,
-                                      color: Colors.white,
-                                      size: 20)
+                                      color: Colors.white, size: 20)
                                   : null,
                             ),
                           );
@@ -792,8 +768,7 @@ class _NewGameSheetState extends State<_NewGameSheet> {
                     ),
                   ],
 
-                  if (_backgroundType ==
-                      BackgroundType.solidColor) ...[
+                  if (_backgroundType == BackgroundType.solidColor) ...[
                     SizedBox(
                       height: 60,
                       child: ListView(
@@ -810,30 +785,24 @@ class _NewGameSheetState extends State<_NewGameSheet> {
                             const Color(0xFF3C366B),
                           ])
                             GestureDetector(
-                              onTap: () => setState(
-                                  () => _solidColor = c),
+                              onTap: () => setState(() => _solidColor = c),
                               child: Container(
                                 width: 52,
                                 height: 52,
-                                margin: const EdgeInsets.only(
-                                    right: 8),
+                                margin: const EdgeInsets.only(right: 8),
                                 decoration: BoxDecoration(
                                   color: c,
-                                  borderRadius:
-                                      BorderRadius.circular(14),
+                                  borderRadius: BorderRadius.circular(14),
                                   border: _solidColor == c
                                       ? Border.all(
-                                          color: Colors.white,
-                                          width: 2.5)
+                                          color: Colors.white, width: 2.5)
                                       : Border.all(
                                           color: Colors.white
-                                              .withOpacity(
-                                                  0.15)),
+                                              .withValues(alpha: 0.15)),
                                 ),
                                 child: _solidColor == c
                                     ? const Icon(Icons.check,
-                                        color: Colors.white,
-                                        size: 20)
+                                        color: Colors.white, size: 20)
                                     : null,
                               ),
                             ),
@@ -857,7 +826,7 @@ class _NewGameSheetState extends State<_NewGameSheet> {
                     child: Text(
                       '开启后，仅在当前回合无分数变化时弹窗确认',
                       style: GoogleFonts.notoSansSc(
-                        color: Colors.white.withOpacity(0.4),
+                        color: Colors.white.withValues(alpha: 0.4),
                         fontSize: 12,
                       ),
                     ),
@@ -872,7 +841,7 @@ class _NewGameSheetState extends State<_NewGameSheet> {
                     child: Text(
                       '开启后，只能通过玩家间拖拽转移分数，不能单独加减',
                       style: GoogleFonts.notoSansSc(
-                        color: Colors.white.withOpacity(0.4),
+                        color: Colors.white.withValues(alpha: 0.4),
                         fontSize: 12,
                       ),
                     ),
@@ -887,8 +856,7 @@ class _NewGameSheetState extends State<_NewGameSheet> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF667EEA),
                         foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 16),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -916,7 +884,7 @@ class _NewGameSheetState extends State<_NewGameSheet> {
     return Text(
       text,
       style: GoogleFonts.notoSansSc(
-        color: Colors.white.withOpacity(0.7),
+        color: Colors.white.withValues(alpha: 0.7),
         fontSize: 14,
         fontWeight: FontWeight.w500,
       ),
@@ -926,31 +894,27 @@ class _NewGameSheetState extends State<_NewGameSheet> {
   InputDecoration _inputDecoration(String hint) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: GoogleFonts.notoSansSc(
-          color: Colors.white.withOpacity(0.3)),
+      hintStyle:
+          GoogleFonts.notoSansSc(color: Colors.white.withValues(alpha: 0.3)),
       filled: true,
-      fillColor: Colors.white.withOpacity(0.08),
+      fillColor: Colors.white.withValues(alpha: 0.08),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(14),
-        borderSide:
-            BorderSide(color: Colors.white.withOpacity(0.1)),
+        borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(14),
-        borderSide:
-            BorderSide(color: Colors.white.withOpacity(0.1)),
+        borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(14),
         borderSide: const BorderSide(color: Color(0xFF667EEA)),
       ),
-      contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16, vertical: 12),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
     );
   }
 
-  Widget _buildBackgroundTypeChip(
-      String label, BackgroundType type) {
+  Widget _buildBackgroundTypeChip(String label, BackgroundType type) {
     final isSelected = _backgroundType == type;
     return ChoiceChip(
       label: Text(label,
@@ -959,10 +923,9 @@ class _NewGameSheetState extends State<_NewGameSheet> {
           )),
       selected: isSelected,
       selectedColor: const Color(0xFF667EEA),
-      backgroundColor: Colors.white.withOpacity(0.08),
-      side: BorderSide(color: Colors.white.withOpacity(0.1)),
-      onSelected: (_) =>
-          setState(() => _backgroundType = type),
+      backgroundColor: Colors.white.withValues(alpha: 0.08),
+      side: BorderSide(color: Colors.white.withValues(alpha: 0.1)),
+      onSelected: (_) => setState(() => _backgroundType = type),
     );
   }
 
@@ -974,7 +937,7 @@ class _NewGameSheetState extends State<_NewGameSheet> {
         Text(
           label,
           style: GoogleFonts.notoSansSc(
-            color: Colors.white.withOpacity(0.9),
+            color: Colors.white.withValues(alpha: 0.9),
             fontSize: 15,
           ),
         ),
@@ -997,8 +960,7 @@ class _NewGameSheetState extends State<_NewGameSheet> {
       solidColorValue: _solidColor.toARGB32(),
     );
 
-    final provider =
-        Provider.of<GameProvider>(context, listen: false);
+    final provider = Provider.of<GameProvider>(context, listen: false);
     final screenSize = MediaQuery.of(context).size;
 
     await provider.createGame(
@@ -1044,8 +1006,7 @@ class _EditGameSheetState extends State<_EditGameSheet> {
   @override
   void initState() {
     super.initState();
-    _nameController =
-        TextEditingController(text: widget.gameSummary.name);
+    _nameController = TextEditingController(text: widget.gameSummary.name);
     _loadGameData();
   }
 
@@ -1056,8 +1017,7 @@ class _EditGameSheetState extends State<_EditGameSheet> {
   }
 
   Future<void> _loadGameData() async {
-    final data =
-        await GameStorage.loadGame(widget.gameSummary.id);
+    final data = await GameStorage.loadGame(widget.gameSummary.id);
     if (mounted) {
       setState(() {
         _gameData = data;
@@ -1073,11 +1033,9 @@ class _EditGameSheetState extends State<_EditGameSheet> {
         height: 200,
         decoration: const BoxDecoration(
           color: Color(0xFF1A202C),
-          borderRadius:
-              BorderRadius.vertical(top: Radius.circular(24)),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
         ),
-        child:
-            const Center(child: CircularProgressIndicator()),
+        child: const Center(child: CircularProgressIndicator()),
       );
     }
 
@@ -1086,13 +1044,11 @@ class _EditGameSheetState extends State<_EditGameSheet> {
         height: 200,
         decoration: const BoxDecoration(
           color: Color(0xFF1A202C),
-          borderRadius:
-              BorderRadius.vertical(top: Radius.circular(24)),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
         ),
         child: Center(
           child: Text('无法加载游戏数据',
-              style: GoogleFonts.notoSansSc(
-                  color: Colors.white54)),
+              style: GoogleFonts.notoSansSc(color: Colors.white54)),
         ),
       );
     }
@@ -1103,8 +1059,7 @@ class _EditGameSheetState extends State<_EditGameSheet> {
       ),
       decoration: const BoxDecoration(
         color: Color(0xFF1A202C),
-        borderRadius:
-            BorderRadius.vertical(top: Radius.circular(24)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -1114,7 +1069,7 @@ class _EditGameSheetState extends State<_EditGameSheet> {
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -1141,55 +1096,46 @@ class _EditGameSheetState extends State<_EditGameSheet> {
                   // Game name
                   Text('游戏名称',
                       style: GoogleFonts.notoSansSc(
-                          color: Colors.white.withOpacity(0.7),
+                          color: Colors.white.withValues(alpha: 0.7),
                           fontSize: 14)),
                   const SizedBox(height: 8),
                   TextField(
                     controller: _nameController,
-                    style: GoogleFonts.notoSansSc(
-                        color: Colors.white),
+                    style: GoogleFonts.notoSansSc(color: Colors.white),
                     decoration: InputDecoration(
                       hintText: '游戏名称',
                       hintStyle: GoogleFonts.notoSansSc(
-                          color: Colors.white.withOpacity(0.3)),
+                          color: Colors.white.withValues(alpha: 0.3)),
                       filled: true,
-                      fillColor: Colors.white.withOpacity(0.08),
+                      fillColor: Colors.white.withValues(alpha: 0.08),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14),
                         borderSide: BorderSide(
-                            color: Colors.white.withOpacity(0.1)),
+                            color: Colors.white.withValues(alpha: 0.1)),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14),
                         borderSide: BorderSide(
-                            color: Colors.white.withOpacity(0.1)),
+                            color: Colors.white.withValues(alpha: 0.1)),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(14),
-                        borderSide: const BorderSide(
-                            color: Color(0xFF667EEA)),
+                        borderSide: const BorderSide(color: Color(0xFF667EEA)),
                       ),
                     ),
                   ),
                   const SizedBox(height: 20),
 
                   // Settings toggles
-                  _buildEditSwitch(
-                      '屏幕常亮', _gameData!.isScreenAlwaysOn,
-                      (v) {
-                    setState(
-                        () => _gameData!.isScreenAlwaysOn = v);
+                  _buildEditSwitch('屏幕常亮', _gameData!.isScreenAlwaysOn, (v) {
+                    setState(() => _gameData!.isScreenAlwaysOn = v);
                   }),
                   const SizedBox(height: 12),
-                  _buildEditSwitch(
-                      '快速下一回合', _gameData!.quickNextRound,
-                      (v) {
-                    setState(
-                        () => _gameData!.quickNextRound = v);
+                  _buildEditSwitch('快速下一回合', _gameData!.quickNextRound, (v) {
+                    setState(() => _gameData!.quickNextRound = v);
                   }),
                   const SizedBox(height: 12),
-                  _buildEditSwitch(
-                      '零和博弈模式', _gameData!.isZeroSum, (v) {
+                  _buildEditSwitch('零和博弈模式', _gameData!.isZeroSum, (v) {
                     setState(() => _gameData!.isZeroSum = v);
                   }),
 
@@ -1198,21 +1144,19 @@ class _EditGameSheetState extends State<_EditGameSheet> {
                   // Background
                   Text('背景',
                       style: GoogleFonts.notoSansSc(
-                          color: Colors.white.withOpacity(0.7),
+                          color: Colors.white.withValues(alpha: 0.7),
                           fontSize: 14)),
                   const SizedBox(height: 8),
                   Wrap(
                     spacing: 8,
                     children: [
                       _editBgChip('莫奈桌布', BackgroundType.monet),
-                      _editBgChip(
-                          '纯色桌布', BackgroundType.solidColor),
+                      _editBgChip('纯色桌布', BackgroundType.solidColor),
                     ],
                   ),
                   const SizedBox(height: 12),
 
-                  if (_gameData!.backgroundConfig.type ==
-                      BackgroundType.monet)
+                  if (_gameData!.backgroundConfig.type == BackgroundType.monet)
                     _editMonetSelector(),
                   if (_gameData!.backgroundConfig.type ==
                       BackgroundType.solidColor)
@@ -1228,8 +1172,7 @@ class _EditGameSheetState extends State<_EditGameSheet> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF667EEA),
                         foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 14),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
                         ),
@@ -1237,8 +1180,7 @@ class _EditGameSheetState extends State<_EditGameSheet> {
                       ),
                       child: Text('保存',
                           style: GoogleFonts.notoSansSc(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600)),
+                              fontSize: 16, fontWeight: FontWeight.w600)),
                     ),
                   ),
                 ],
@@ -1258,7 +1200,7 @@ class _EditGameSheetState extends State<_EditGameSheet> {
         Text(
           label,
           style: GoogleFonts.notoSansSc(
-            color: Colors.white.withOpacity(0.9),
+            color: Colors.white.withValues(alpha: 0.9),
             fontSize: 15,
           ),
         ),
@@ -1272,33 +1214,29 @@ class _EditGameSheetState extends State<_EditGameSheet> {
   }
 
   Widget _editBgChip(String label, BackgroundType type) {
-    final isSelected =
-        _gameData!.backgroundConfig.type == type;
+    final isSelected = _gameData!.backgroundConfig.type == type;
     return GestureDetector(
       onTap: () {
         setState(() {
           _gameData!.backgroundConfig = BackgroundConfig(
             type: type,
-            monetPaletteIndex:
-                _gameData!.backgroundConfig.monetPaletteIndex,
+            monetPaletteIndex: _gameData!.backgroundConfig.monetPaletteIndex,
             solidColorValue:
-                _gameData!.backgroundConfig.solidColorValue ??
-                    0xFF2D3748,
+                _gameData!.backgroundConfig.solidColorValue ?? 0xFF2D3748,
           );
         });
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(
-            horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: isSelected
               ? const Color(0xFF667EEA)
-              : Colors.white.withOpacity(0.08),
+              : Colors.white.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: isSelected
                 ? const Color(0xFF667EEA)
-                : Colors.white.withOpacity(0.1),
+                : Colors.white.withValues(alpha: 0.1),
           ),
         ),
         child: Text(
@@ -1320,9 +1258,8 @@ class _EditGameSheetState extends State<_EditGameSheet> {
         itemCount: MonetPalettes.palettes.length,
         itemBuilder: (context, index) {
           final palette = MonetPalettes.palettes[index];
-          final isSelected = _gameData!
-                  .backgroundConfig.monetPaletteIndex ==
-              index;
+          final isSelected =
+              _gameData!.backgroundConfig.monetPaletteIndex == index;
           return GestureDetector(
             onTap: () {
               setState(() {
@@ -1339,11 +1276,8 @@ class _EditGameSheetState extends State<_EditGameSheet> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 border: isSelected
-                    ? Border.all(
-                        color: Colors.white, width: 2.5)
-                    : Border.all(
-                        color:
-                            Colors.white.withOpacity(0.15)),
+                    ? Border.all(color: Colors.white, width: 2.5)
+                    : Border.all(color: Colors.white.withValues(alpha: 0.15)),
                 gradient: RadialGradient(
                   colors: [
                     palette.centerColor,
@@ -1352,8 +1286,7 @@ class _EditGameSheetState extends State<_EditGameSheet> {
                 ),
               ),
               child: isSelected
-                  ? const Icon(Icons.check,
-                      color: Colors.white, size: 18)
+                  ? const Icon(Icons.check, color: Colors.white, size: 18)
                   : null,
             ),
           );
@@ -1379,14 +1312,12 @@ class _EditGameSheetState extends State<_EditGameSheet> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: colors.map((c) {
-          final isSelected = _gameData!
-                  .backgroundConfig.solidColorValue ==
-              c.toARGB32();
+          final isSelected =
+              _gameData!.backgroundConfig.solidColorValue == c.toARGB32();
           return GestureDetector(
             onTap: () {
               setState(() {
-                _gameData!.backgroundConfig =
-                    BackgroundConfig(
+                _gameData!.backgroundConfig = BackgroundConfig(
                   type: BackgroundType.solidColor,
                   solidColorValue: c.toARGB32(),
                 );
@@ -1400,15 +1331,11 @@ class _EditGameSheetState extends State<_EditGameSheet> {
                 color: c,
                 borderRadius: BorderRadius.circular(12),
                 border: isSelected
-                    ? Border.all(
-                        color: Colors.white, width: 2.5)
-                    : Border.all(
-                        color:
-                            Colors.white.withOpacity(0.15)),
+                    ? Border.all(color: Colors.white, width: 2.5)
+                    : Border.all(color: Colors.white.withValues(alpha: 0.15)),
               ),
               child: isSelected
-                  ? const Icon(Icons.check,
-                      color: Colors.white, size: 18)
+                  ? const Icon(Icons.check, color: Colors.white, size: 18)
                   : null,
             ),
           );

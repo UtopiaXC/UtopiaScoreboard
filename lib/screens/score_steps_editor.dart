@@ -65,12 +65,12 @@ class _ScoreStepsEditorState extends State<ScoreStepsEditor> {
                 children: [
                   Text('当前分数步长',
                       style: GoogleFonts.notoSansSc(
-                          color: Colors.white.withOpacity(0.7),
+                          color: Colors.white.withValues(alpha: 0.7),
                           fontSize: 14)),
                   const SizedBox(height: 4),
                   Text('点击数字可编辑，长按可删除，点击 + 添加新步长',
                       style: GoogleFonts.notoSansSc(
-                          color: Colors.white.withOpacity(0.35),
+                          color: Colors.white.withValues(alpha: 0.35),
                           fontSize: 12)),
                   const SizedBox(height: 16),
                   _StepChips(
@@ -85,7 +85,7 @@ class _ScoreStepsEditorState extends State<ScoreStepsEditor> {
                   const SizedBox(height: 24),
                   Text('预览',
                       style: GoogleFonts.notoSansSc(
-                          color: Colors.white.withOpacity(0.7),
+                          color: Colors.white.withValues(alpha: 0.7),
                           fontSize: 14)),
                   const SizedBox(height: 8),
                   _StepPreview(steps: _steps),
@@ -101,8 +101,7 @@ class _ScoreStepsEditorState extends State<ScoreStepsEditor> {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: const Color(0xFF1A202C),
-        title:
-            Text('编辑步长', style: GoogleFonts.notoSansSc(color: Colors.white)),
+        title: Text('编辑步长', style: GoogleFonts.notoSansSc(color: Colors.white)),
         content: _stepInput(ctrl),
         actions: [
           TextButton(
@@ -120,8 +119,7 @@ class _ScoreStepsEditorState extends State<ScoreStepsEditor> {
               Navigator.pop(ctx);
             },
             child: Text('确认',
-                style: GoogleFonts.notoSansSc(
-                    color: const Color(0xFF667EEA))),
+                style: GoogleFonts.notoSansSc(color: const Color(0xFF667EEA))),
           ),
         ],
       ),
@@ -134,8 +132,7 @@ class _ScoreStepsEditorState extends State<ScoreStepsEditor> {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: const Color(0xFF1A202C),
-        title:
-            Text('添加步长', style: GoogleFonts.notoSansSc(color: Colors.white)),
+        title: Text('添加步长', style: GoogleFonts.notoSansSc(color: Colors.white)),
         content: _stepInput(ctrl),
         actions: [
           TextButton(
@@ -156,8 +153,7 @@ class _ScoreStepsEditorState extends State<ScoreStepsEditor> {
               Navigator.pop(ctx);
             },
             child: Text('添加',
-                style: GoogleFonts.notoSansSc(
-                    color: const Color(0xFF667EEA))),
+                style: GoogleFonts.notoSansSc(color: const Color(0xFF667EEA))),
           ),
         ],
       ),
@@ -174,7 +170,7 @@ class _ScoreStepsEditorState extends State<ScoreStepsEditor> {
         hintText: '输入数字',
         hintStyle: GoogleFonts.notoSansSc(color: Colors.white30),
         filled: true,
-        fillColor: Colors.white.withOpacity(0.08),
+        fillColor: Colors.white.withValues(alpha: 0.08),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
     );
@@ -205,13 +201,12 @@ class _StepChips extends StatelessWidget {
             onTap: () => onEdit(entry.key),
             onLongPress: () => onRemove(entry.key),
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
-                color: const Color(0xFF667EEA).withOpacity(0.15),
+                color: const Color(0xFF667EEA).withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                    color: const Color(0xFF667EEA).withOpacity(0.3)),
+                    color: const Color(0xFF667EEA).withValues(alpha: 0.3)),
               ),
               child: Text('${entry.value}',
                   style: GoogleFonts.outfit(
@@ -224,15 +219,14 @@ class _StepChips extends StatelessWidget {
         GestureDetector(
           onTap: onAdd,
           child: Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.08),
+              color: Colors.white.withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.white.withOpacity(0.15)),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
             ),
-            child:
-                Icon(Icons.add, color: Colors.white.withOpacity(0.5), size: 20),
+            child: Icon(Icons.add,
+                color: Colors.white.withValues(alpha: 0.5), size: 20),
           ),
         ),
       ],
@@ -250,9 +244,9 @@ class _StepPreview extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.3),
+        color: Colors.black.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
       ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -264,7 +258,7 @@ class _StepPreview extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 6),
                       decoration: BoxDecoration(
-                        color: Colors.green.withOpacity(0.7),
+                        color: Colors.green.withValues(alpha: 0.7),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text('$step',
@@ -278,4 +272,3 @@ class _StepPreview extends StatelessWidget {
     );
   }
 }
-
