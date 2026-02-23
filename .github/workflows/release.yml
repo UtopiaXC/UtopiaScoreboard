@@ -136,9 +136,9 @@ jobs:
           [Desktop Entry]
           Type=Application
           Name=UtopiaScoreboard
-          Exec=UtopiaScoreboard
-          Icon=UtopiaScoreboard
-          Categories=Audio;Scoreboard;
+          Exec=utopia_scoreboard
+          Icon=utopiascoreboard
+          Categories=Utility;
           EOF
           
           cp dist/AppDir/utopiascoreboard.desktop dist/AppDir/usr/share/applications/
@@ -148,7 +148,7 @@ jobs:
             cp assets/images/ic_windows.png dist/AppDir/usr/share/icons/hicolor/256x256/apps/utopiascoreboard.png
           fi
           
-          ln -s usr/bin/UtopiaScoreboard dist/AppDir/AppRun
+          ln -s usr/bin/utopia_scoreboard dist/AppDir/AppRun
           
           (cd dist && ARCH=x86_64 ../appimagetool AppDir "UtopiaScoreboard-${VERSION_NAME}-Linux-x64.AppImage")
           
