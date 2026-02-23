@@ -3,7 +3,7 @@
 #define AppPublisher "UtopiaXC"
 #define AppURL "https://github.com/UtopiaXC/UtopiaScoreboard"
 
-#define MyAppExeName "UtopiaScoreboard.exe"
+#define MyAppExeName "utopia_scoreboard.exe"
 
 [Setup]
 AppId={{263b7370-f52e-4b0f-88eb-b0deb3089009}}
