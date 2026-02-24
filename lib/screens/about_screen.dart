@@ -119,7 +119,7 @@ class _AboutScreenState extends State<AboutScreen> {
                     '检查更新',
                     '从 GitHub 检查最新版本',
                     Icons.system_update_outlined,
-                    () => UpdateUtil.checkAndShow(context, isManualCheck: true),
+                    () => UpdateUtil.checkAndShow(context),
                   ),
                   _divider(),
                   _buildTapItem(

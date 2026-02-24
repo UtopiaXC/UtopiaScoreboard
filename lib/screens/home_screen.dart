@@ -7,7 +7,6 @@ import 'package:wakelock_plus/wakelock_plus.dart';
 import '../models/game_data.dart';
 import '../providers/game_provider.dart';
 import '../utils/game_storage.dart';
-import '../utils/update_util.dart';
 import '../widgets/game_background.dart';
 import 'app_settings_screen.dart';
 import 'game_screen.dart';
@@ -38,14 +37,6 @@ class _HomeScreenState extends State<HomeScreen>
     );
     _fadeAnim = CurvedAnimation(parent: _animController, curve: Curves.easeOut);
     _loadGames();
-    // Auto-check for updates after a small delay
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(seconds: 2), () {
-        if (mounted) {
-          UpdateUtil.checkAndShow(context, isManualCheck: false);
-        }
-      });
-    });
   }
 
   @override

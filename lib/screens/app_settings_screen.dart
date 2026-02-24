@@ -99,7 +99,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
             icon: Icons.system_update_outlined,
             title: '检查更新',
             subtitle: '从 GitHub 检查最新版本',
-            onTap: () => UpdateUtil.checkAndShow(context, isManualCheck: true),
+            onTap: () => UpdateUtil.checkAndShow(context),
           ),
           const SizedBox(height: 12),
 
