@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../providers/game_provider.dart';
+import '../providers/settings_provider.dart';
 import '../widgets/control_panel.dart';
 import '../widgets/score_panel.dart';
 import '../widgets/game_background.dart';
@@ -22,6 +23,7 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
   Orientation? _lastOrientation;
+  double? _lastTotalScale;
 
   @override
   void initState() {
@@ -45,11 +47,20 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       final game = Provider.of<GameProvider>(context, listen: false);
+      final settings = Provider.of<SettingsProvider>(context, listen: false);
       final screenSize = MediaQuery.of(context).size;
       final orientation = MediaQuery.of(context).orientation;
-      game.clampAllPlayers(screenSize, orientation);
+
+      final autoScale = (screenSize.shortestSide / 360.0).clamp(1.0, 1.5);
+      final totalScale = autoScale * settings.uiScale;
+      final scaledSize = Size(
+        screenSize.width / totalScale,
+        screenSize.height / totalScale,
+      );
+
+      game.clampAllPlayers(scaledSize, orientation);
       if (orientation == Orientation.landscape) {
-        game.ensureLandscapeLayout(screenSize);
+        game.ensureLandscapeLayout(scaledSize);
       }
     });
   }
@@ -57,17 +68,33 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final game = Provider.of<GameProvider>(context);
-    final screenSize = MediaQuery.of(context).size;
+    final settings = Provider.of<SettingsProvider>(context);
+    final unscaledSize = MediaQuery.of(context).size;
     final orientation = MediaQuery.of(context).orientation;
 
-    // Clamp on every build if orientation changed
-    if (_lastOrientation != orientation) {
+    final autoScale = (unscaledSize.shortestSide / 360.0).clamp(1.0, 1.5);
+    
+    if (!settings.initialized) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        settings.initializeUiScale(autoScale);
+      });
+    }
+
+    final totalScale = settings.initialized ? settings.uiScale : autoScale;
+    final scaledSize = Size(
+      unscaledSize.width / totalScale,
+      unscaledSize.height / totalScale,
+    );
+
+    // Clamp on every build if orientation or scale changed
+    if (_lastOrientation != orientation || _lastTotalScale != totalScale) {
       _lastOrientation = orientation;
+      _lastTotalScale = totalScale;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
-        game.clampAllPlayers(screenSize, orientation);
+        game.clampAllPlayers(scaledSize, orientation);
         if (orientation == Orientation.landscape) {
-          game.ensureLandscapeLayout(screenSize);
+          game.ensureLandscapeLayout(scaledSize);
         }
       });
     }
@@ -95,34 +122,53 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                 child: const SizedBox.expand(),
               ),
             ),
-            // Players
-            Consumer<GameProvider>(
-              builder: (context, game, child) {
-                return Stack(
-                  children: game.players.map((player) {
-                    final position = orientation == Orientation.portrait
-                        ? player.position
-                        : (player.landscapePosition ?? player.position);
-                    return Positioned(
-                      left: position.dx,
-                      top: position.dy,
-                      child: PlayerItem(
-                        player: player,
-                        screenSize: screenSize,
+            // Scaled Game Content
+            Positioned(
+              left: 0,
+              top: 0,
+              width: scaledSize.width,
+              height: scaledSize.height,
+              child: Transform.scale(
+                scale: totalScale,
+                alignment: Alignment.topLeft,
+                child: MediaQuery(
+                  data: MediaQuery.of(context).copyWith(size: scaledSize),
+                  child: Stack(
+                    children: [
+                      // Players
+                      Consumer<GameProvider>(
+                        builder: (context, game, child) {
+                          return Stack(
+                            children: game.players.map((player) {
+                              final position = orientation == Orientation.portrait
+                                  ? player.position
+                                  : (player.landscapePosition ?? player.position);
+                              return Positioned(
+                                left: position.dx,
+                                top: position.dy,
+                                child: PlayerItem(
+                                  player: player,
+                                  screenSize: scaledSize,
+                                  totalScale: totalScale,
+                                ),
+                              );
+                            }).toList(),
+                          );
+                        },
                       ),
-                    );
-                  }).toList(),
-                );
-              },
+                      // Control Panel (toolbar)
+                      const ControlPanel(),
+                      // Score Panel (floating, positioned relative to toolbar)
+                      const ScorePanel(),
+                      // Top-left: back + rotate
+                      _TopLeftButtons(orientation: orientation),
+                      // Top-right: round display
+                      _TopRightRound(game: game),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            // Control Panel (toolbar)
-            const ControlPanel(),
-            // Score Panel (floating, positioned relative to toolbar)
-            const ScorePanel(),
-            // Top-left: back + rotate
-            _TopLeftButtons(orientation: orientation),
-            // Top-right: round display
-            _TopRightRound(game: game),
           ],
         ),
       ),

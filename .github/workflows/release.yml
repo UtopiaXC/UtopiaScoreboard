@@ -282,7 +282,7 @@ jobs:
       - name: Flutter pub get
         run: flutter pub get
       - name: Build web
-        run: flutter build web --release --build-name $VERSION_NAME --build-number $BUILD_NUMBER
+        run: flutter build web --release --wasm --build-name $VERSION_NAME --build-number $BUILD_NUMBER
       - name: Package web build
         run: |
           cd build/web

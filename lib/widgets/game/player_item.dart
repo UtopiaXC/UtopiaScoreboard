@@ -11,7 +11,8 @@ import 'transfer_dialog.dart';
 class PlayerItem extends StatefulWidget {
   final Player player;
   final Size screenSize;
-  const PlayerItem({super.key, required this.player, required this.screenSize});
+  final double totalScale;
+  const PlayerItem({super.key, required this.player, required this.screenSize, this.totalScale = 1.0});
 
   @override
   State<PlayerItem> createState() => _PlayerItemState();
@@ -130,9 +131,17 @@ class _PlayerItemState extends State<PlayerItem> {
       },
       child: Draggable<Player>(
         data: widget.player,
+        dragAnchorStrategy: (Draggable<Object> draggable, BuildContext context, Offset position) {
+          final RenderBox renderObject = context.findRenderObject() as RenderBox;
+          return renderObject.globalToLocal(position) * widget.totalScale;
+        },
         feedback: Material(
           color: Colors.transparent,
-          child: PlayerAvatar(player: widget.player, isDragging: true),
+          child: Transform.scale(
+            scale: widget.totalScale,
+            alignment: Alignment.topLeft,
+            child: PlayerAvatar(player: widget.player, isDragging: true),
+          ),
         ),
         childWhenDragging: Opacity(
           opacity: 0.5,
@@ -146,8 +155,8 @@ class _PlayerItemState extends State<PlayerItem> {
             game.clearTransferFlag();
             return;
           }
-          double newX = details.offset.dx;
-          double newY = details.offset.dy;
+          double newX = details.offset.dx / widget.totalScale;
+          double newY = details.offset.dy / widget.totalScale;
           newX = newX.clamp(0, screenSize.width - currentCardWidth);
           newY = newY.clamp(0, screenSize.height - currentCardHeight - 10);
           game.updatePlayerPosition(

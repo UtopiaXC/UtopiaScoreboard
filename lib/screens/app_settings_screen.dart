@@ -12,6 +12,8 @@ import '../utils/download_helper.dart';
 import '../utils/update_util.dart';
 import 'score_steps_editor.dart';
 import 'about_screen.dart';
+import 'package:provider/provider.dart';
+import '../providers/settings_provider.dart';
 
 class AppSettingsScreen extends StatefulWidget {
   const AppSettingsScreen({super.key});
@@ -55,6 +57,20 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => const ScoreStepsEditor()),
+              );
+            },
+          ),
+          const SizedBox(height: 12),
+
+          // UI Scale
+          Consumer<SettingsProvider>(
+            builder: (context, provider, _) {
+              final scaleText = '${(provider.uiScale * 100).round()}%';
+              return _buildCard(
+                icon: Icons.aspect_ratio,
+                title: '界面缩放',
+                subtitle: '当前缩放比例: $scaleText (50%~300%)',
+                onTap: () => _showUiScaleDialog(context, provider),
               );
             },
           ),
@@ -163,6 +179,60 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showUiScaleDialog(BuildContext context, SettingsProvider provider) {
+    double currentScale = provider.uiScale;
+    
+    showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              backgroundColor: const Color(0xFF1A202C),
+              title: Text('调节界面缩放', style: GoogleFonts.notoSansSc(color: Colors.white)),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    '当前缩放比例: ${(currentScale * 100).round()}%',
+                    style: GoogleFonts.notoSansSc(color: Colors.white70),
+                  ),
+                  const SizedBox(height: 16),
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      activeTrackColor: const Color(0xFF667EEA),
+                      inactiveTrackColor: Colors.white24,
+                      thumbColor: const Color(0xFF667EEA),
+                      overlayColor: const Color(0xFF667EEA).withValues(alpha: 0.2),
+                    ),
+                    child: Slider(
+                      value: currentScale,
+                      min: 0.5,
+                      max: 3.0,
+                      divisions: 25,
+                      onChanged: (value) {
+                        setState(() {
+                          currentScale = value;
+                        });
+                        provider.setUiScale(value);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text('完成', style: GoogleFonts.notoSansSc(color: const Color(0xFF667EEA))),
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 

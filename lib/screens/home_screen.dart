@@ -88,17 +88,18 @@ class _HomeScreenState extends State<HomeScreen>
         }
       },
       child: Scaffold(
-        body: Stack(
-          children: [
-            // Background
-            Positioned.fill(
-              child: GameBackground(
-                config: BackgroundConfig(
-                  type: BackgroundType.monet,
-                  monetPaletteIndex: 6,
+        body: SizedBox.expand(
+          child: Stack(
+            children: [
+              // Background
+              Positioned.fill(
+                child: GameBackground(
+                  config: BackgroundConfig(
+                    type: BackgroundType.monet,
+                    monetPaletteIndex: 6,
+                  ),
                 ),
               ),
-            ),
             // Content
             SafeArea(
               child: FadeTransition(
@@ -279,8 +280,9 @@ class _HomeScreenState extends State<HomeScreen>
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   void _showNewGameSheet(BuildContext context) {
     showModalBottomSheet(

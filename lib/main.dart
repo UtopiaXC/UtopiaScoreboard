@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'providers/game_provider.dart';
+import 'providers/settings_provider.dart';
 import 'screens/home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => GameProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => SettingsProvider()),
+        ChangeNotifierProvider(create: (_) => GameProvider()),
+      ],
       child: const MyApp(),
     ),
   );
