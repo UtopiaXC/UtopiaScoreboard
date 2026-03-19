@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../providers/settings_provider.dart';
 
 /// Editor for customizing the score step values.
 class ScoreStepsEditor extends StatefulWidget {
@@ -33,6 +35,10 @@ class _ScoreStepsEditorState extends State<ScoreStepsEditor> {
   Future<void> _saveSteps() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('global_score_steps', jsonEncode(_steps));
+    if (mounted) {
+      Provider.of<SettingsProvider>(context, listen: false)
+          .reloadGlobalScoreSteps();
+    }
   }
 
   @override

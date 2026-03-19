@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../models/player.dart';
 import '../../providers/game_provider.dart';
+import '../../providers/settings_provider.dart';
 
 /// Inline score adjustment row shown when a player is selected.
 class ScoreRow extends StatelessWidget {
@@ -49,7 +51,7 @@ class ScoreRow extends StatelessWidget {
             const SizedBox(width: 8),
             _SignToggle(game: game),
             const SizedBox(width: 6),
-            ...game.scoreSteps.map((step) => _ScoreStepButton(
+            ...Provider.of<SettingsProvider>(context).globalScoreSteps.map((step) => _ScoreStepButton(
                   game: game,
                   step: step,
                 )),
