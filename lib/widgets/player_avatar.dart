@@ -73,28 +73,34 @@ class PlayerAvatar extends StatelessWidget {
                           Row(
                             children: [
                               Flexible(
-                                child: Text(
-                                  '积分：${player.totalScore}',
-                                  style: GoogleFonts.notoSansSc(
-                                    color: Colors.white.withValues(alpha: 0.9),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    '积分：${player.totalScore}',
+                                    style: GoogleFonts.notoSansSc(
+                                      color: Colors.white.withValues(alpha: 0.9),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               if (player.currentRoundChange != 0) ...[
                                 const SizedBox(width: 8),
-                                Text(
-                                  player.currentRoundChange > 0
-                                      ? '+${player.currentRoundChange}'
-                                      : '${player.currentRoundChange}',
-                                  style: GoogleFonts.outfit(
-                                    color: player.currentRoundChange > 0
-                                        ? Colors.greenAccent
-                                        : Colors.redAccent,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold,
+                                FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Text(
+                                    player.currentRoundChange > 0
+                                        ? '+${player.currentRoundChange}'
+                                        : '${player.currentRoundChange}',
+                                    style: GoogleFonts.outfit(
+                                      color: player.currentRoundChange > 0
+                                          ? Colors.greenAccent
+                                          : Colors.redAccent,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ],

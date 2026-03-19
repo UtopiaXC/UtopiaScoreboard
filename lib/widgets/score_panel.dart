@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../providers/game_provider.dart';
+import '../providers/settings_provider.dart';
 import 'control_panel.dart';
 
 /// Floating score panel that appears above/below the [ControlPanel]
@@ -32,6 +33,7 @@ class ScorePanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final game = Provider.of<GameProvider>(context);
+    final settings = Provider.of<SettingsProvider>(context);
     final selected = game.selectedPlayer;
     if (selected == null || game.isZeroSum) {
       return const SizedBox.shrink();
@@ -67,7 +69,7 @@ class ScorePanel extends StatelessWidget {
     final double controlCenterX = barPos.dx + ControlPanel.expandedWidth / 2;
     final double maxWidth = screenSize.width - _hMargin * 2;
     final double estimatedW = _estimatePanelWidth(
-      game.scoreSteps.length,
+      settings.globalScoreSteps.length,
       selected.name,
     ).clamp(0.0, maxWidth);
 
@@ -82,6 +84,7 @@ class ScorePanel extends StatelessWidget {
         onTap: () {}, // absorb taps
         child: _ScorePanelContent(
           game: game,
+          scoreSteps: settings.globalScoreSteps,
           maxWidth: maxWidth,
         ),
       ),
@@ -91,17 +94,19 @@ class ScorePanel extends StatelessWidget {
 
 class _ScorePanelContent extends StatelessWidget {
   final GameProvider game;
+  final List<int> scoreSteps;
   final double maxWidth;
 
   const _ScorePanelContent({
     required this.game,
+    required this.scoreSteps,
     required this.maxWidth,
   });
 
   @override
   Widget build(BuildContext context) {
     final selected = game.selectedPlayer!;
-    final steps = game.scoreSteps;
+    final steps = scoreSteps;
 
     return Container(
       constraints: BoxConstraints(maxWidth: maxWidth),
